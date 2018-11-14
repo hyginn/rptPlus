@@ -1,0 +1,18 @@
+Package: rptPlus
+Type: Package
+Title: R Package Template - advanced
+Version: 0.1.0
+Author: Boris Steipe
+Maintainer: Boris Steipe <boris.steipe@utoronto.ca>
+Description: rpt contains an easy to adapt set of files for R package
+             development, loosely based on Hadley Wickham's
+             R-packages book. This advanced version includes files to create
+             a Shiny package alongside with the package.
+License: file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports:
+    shiny
+Suggests:
+    testthat
+RoxygenNote: 6.1.0
