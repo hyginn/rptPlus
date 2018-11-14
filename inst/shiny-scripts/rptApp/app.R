@@ -1,64 +1,93 @@
 # app.R
 #
-# Example script for a shiny script in the rptPlus package template
+# Example script for a shiny script in the rptPlus package template.
+# Parts of the code inspired by the RStudio shiny tutorial script 01_hello.
+#
 
 library(shiny)
 
-# Define UI for app that draws a histogram ----
-ui <- fluidPage(
+# Define UI for sample app
+myUi <- fluidPage(
 
-  # App title ----
-  titlePanel("Hello Shiny!"),
-
-  # Sidebar layout with input and output definitions ----
-  sidebarLayout(
-
-    # Sidebar panel for inputs ----
+  titlePanel("Effect of censoring on distribution"),
+  sidebarLayout( position = "right",
     sidebarPanel(
-
-      # Input: Slider for the number of bins ----
-      sliderInput(inputId = "bins",
-                  label = "Number of bins:",
+      sliderInput(inputId = "histBins",
+                  label = "# histogram bins:",
                   min = 1,
                   max = 50,
                   value = 30)
-
+      , sliderInput(inputId = "bound",
+                  label = "left censor bound",
+                  step = 0.1,
+                  min = -4,
+                  max = 4,
+                  value = -4)
     ),
 
-    # Main panel for displaying outputs ----
     mainPanel(
-
-      # Output: Histogram ----
-      plotOutput(outputId = "distPlot")
-
+      textOutput(outputId = "number")
+      ,
+      plotOutput(outputId = "hist")
     )
   )
 )
 
-# Define server logic required to draw a histogram ----
-server <- function(input, output) {
+# Define server logic to subject samples to large numbers of small changes,
+# subject to a left-hand bound
+# normalize the data, and overlay with a normal distribution.
+myServer <- function(input, output) {
 
-  # Histogram of the Old Faithful Geyser Data ----
-  # with requested number of bins
-  # This expression that generates a histogram is wrapped in a call
-  # to renderPlot to indicate that:
-  #
-  # 1. It is "reactive" and therefore should be automatically
-  #    re-executed when inputs (input$bins) change
-  # 2. Its output type is a plot
-  output$distPlot <- renderPlot({
+  output$number <- renderText({
+    sprintf("Bound: %f", input$bound)
+    })
 
-    x    <- faithful$waiting
-    bins <- seq(min(x), max(x), length.out = input$bins + 1)
+  output$hist <- renderPlot({
 
-    hist(x, breaks = bins, col = "#75AADB", border = "white",
-         xlab = "Waiting time to next eruption (in mins)",
-         main = "Histogram of waiting times")
+    N <- 5000  # number of samples
+    n <- 100   # number of perturbations
+    x <- numeric(N)
+
+    nTrials <- 0
+    for (i in 1:N) {
+      p <- input$bound - 1
+      while(p < input$bound) {
+        p <- cumsum(runif(n, -0.1, 0.1))[n]
+        nTrials <- nTrials + 1
+      }
+      x[i] <- p
+    }
+    x <- x[! is.na(x)]
+
+    mx <- mean(x)
+    sdx <- sd(x)
+    x <- (x - mx) / sdx    # normalize
+
+    bins <- seq(min(x), max(x), length.out = input$histBins + 1)
+    lim <- c(-max(c(abs(min(x)), max(x))), max(c(abs(min(x)), max(x))))
+
+    hist(x,
+         breaks = bins,
+         xlim = lim,
+         freq = FALSE,
+         col = "paleturquoise",
+         xlab = "x",
+         ylab = "frequency",
+        main = sprintf("%d trials, %d perturbations; Bounded at %4.3f",
+                       nTrials,
+                       n,
+                       (input$bound - mx)/sdx))
+
+    x2 <- seq(lim[1], lim[2], length.out = 100)
+
+    lines(x2, dnorm(x2), lwd = 1.5, col="firebrick")
+
+    abline(v = (input$bound - mx)/sdx, col = "seagreen")
 
   })
 
 }
 
-shinyApp(ui = ui, server = server)
+shinyApp(ui = myUi, server = myServer)
 
 # [END]

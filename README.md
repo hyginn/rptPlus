@@ -2,11 +2,7 @@
 
 ## R Package Template - advanced
 
-This is a template RStudio project for R packages, loosely based on Hadley Wickham's
-
-  [R Packages](http://r-pkgs.had.co.nz/) <http://r-pkgs.had.co.nz/> 
-  
-but including advanced functionality such as a Shiny package.
+This is a template RStudio project for R packages, loosely based on Hadley Wickham's [R Packages](http://r-pkgs.had.co.nz/) but including advanced functionality such as a Shiny app.
 
 -----------------------------------------------
 
@@ -36,7 +32,7 @@ In order to distribute a Shiny app with your package:
 
 * There is a function called `runRptApp.R` in the `R` folder. All that does is to launch the app (and provide for the man page.) To demo the app, type `runRptApp()`.
 
-* This is only meant to provide a template for the general layout of files and functions in your package. For contents example and code references see: [RStudio Shiny Tutorial](http://shiny.rstudio.com/tutorial/) <http://shiny.rstudio.com/tutorial/> 
+* This is only meant to provide a template for the general layout of files and functions in your package. For contents examples and code references see the [RStudio Shiny Tutorial](http://shiny.rstudio.com/tutorial/).
 
 
 <!-- END -->
