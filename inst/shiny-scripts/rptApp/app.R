@@ -9,7 +9,7 @@ library(shiny)
 # Define UI for sample app
 myUi <- fluidPage(
 
-  titlePanel("Effect of censoring on distribution"),
+  titlePanel("Does this change the title?"),
   sidebarLayout( position = "right",
     sidebarPanel(
       sliderInput(inputId = "histBins",
@@ -70,7 +70,7 @@ myServer <- function(input, output) {
          breaks = bins,
          xlim = lim,
          freq = FALSE,
-         col = "paleturquoise",
+         col = "palegoldenrod",
          xlab = "x",
          ylab = "frequency",
         main = sprintf("%d trials, %d perturbations; Bounded at %4.3f",
