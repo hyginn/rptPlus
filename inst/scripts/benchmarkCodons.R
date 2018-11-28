@@ -12,13 +12,8 @@ if (! require(Biostrings, quietly=TRUE)) {
 
 
 
-makeSeq <- function(N) {
-  v <- sample(c("A", "C", "G", "T"), N, replace = TRUE)
-  return(paste(v, collapse = ""))
-}
-
 set.seed(20181127)
-mySeq <- makeSeq(99)
+mySeq <- makeSeq(33)
 
 
 
@@ -79,7 +74,8 @@ tEnd - tStart
 
 
 # ===== using system.time()
-system.time(splitCodons1(cDNA))
+
+s <- makeSeq(33)
 
 system.time({ for (i in 1:10) { x <- sc1(s) } })
 system.time({ for (i in 1:10) { x <- sc2(s) } })
@@ -93,17 +89,15 @@ if (!require(microbenchmark, quietly=TRUE)) {
   library(microbenchmark)
 }
 
-s <- makeSeq(999)
+s <- makeSeq(99)
 
-microbenchmark(y <- sc1(s))
-microbenchmark(y <- sc2(s))
-microbenchmark(y <- sc3(s))
-microbenchmark(y <- sc4(s))
-microbenchmark(y <- sc5(s))
-
-
-
-
+microbenchmark(sc1(s),
+               sc2(s),
+               sc3(s),
+               sc4(s),
+               sc5(s),
+               sc6(s),
+               sc6b(s))
 
 
 if (!require(ggplt2, quietly=TRUE)) {
@@ -111,11 +105,14 @@ if (!require(ggplt2, quietly=TRUE)) {
   library(ggplot2)
 }
 
-sc5c <- compiler::cmpfun(sc5b)
 
-bm <- microbenchmark(y <- sc5(s),
-                     y <- sc5b(s),
-                     y <- sc5c(s),
+bm <- microbenchmark(sc1(s),
+                     sc2(s),
+                     sc3(s),
+                     sc4(s),
+                     sc5(s),
+                     sc6(s),
+                     sc6b(s),
                      times = 1000)
 autoplot(bm)
 
@@ -128,9 +125,15 @@ vignette("Rcpp-introduction")
 vignette("Rcpp-attributes")
 vignette("Rcpp-package")
 
-Rcpp::sourceCpp("./src/codonSplitCpp.cpp")
-Rcpp::compileAttributes()
-cpp_codonSplitCpp(makeSeq(33))
+
+# Compare:
+
+x <- makeSeq(300)
+
+microbenchmark(sc6(x),
+               sc6b(x),
+               cpp_codonSplitCpp(x),
+               times = 1000)
 
 
 
