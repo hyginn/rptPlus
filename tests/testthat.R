@@ -1,6 +1,6 @@
 library(testthat)
-#library(<your package name>)
+library(rptPlus)
 
-#test_check("<your package name>")
+test_check("rptPlus")
 
 # [END]

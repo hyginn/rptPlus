@@ -13,15 +13,19 @@
 #'
 #' @family <optional description of family>
 #'
+#' @author \href{https://orcid.org/0000-0002-1134-6758}{Boris Steipe} (aut)
+#'
 #' @seealso \code{\link{<function>}} <describe related function>, ... .
 #'
 #' @examples
-#' multiply(1, 1)
-#' multiply(1i, 1i)
-#' multiply(13, 3)
-functionName <- function(p, q) {
+#' # <explain what the example does>
+#' myFunction(1i, 1i)
+#'
+#' @export
 
-    return(value)
+myFunction <- function(p, q) {
+
+    return(p * q)
 }
 
 # [END]
