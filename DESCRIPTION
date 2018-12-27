@@ -14,6 +14,7 @@ Description: A template for an RStudio project of an R package with a GitHub
              sample NEWS and CITATION files, an example data set, a packaged
              closure, a compiled C++ function, a shiny function, and extensive
              instructions on how to install and customize.
+URL: https://github.com/hyginn/rptPlus
 License: file LICENSE
 Encoding: UTF-8
 LazyData: true
