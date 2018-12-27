@@ -3,10 +3,14 @@
 
 source("./dev/checkEnds.R")
 
-# download a package if it does not exist locally, load the library
-if (! require(stringr, quietly = TRUE)) {
-  install.packages("stringr")
-  library(stringr)
+# download a Bioconductor package if it does not exist locally, (also download
+# the BiocManager if it doesn't exist yet), load the library
+if (! require(BiocCheck, quietly = TRUE)) {
+  if (! requireNamespace("BiocManager", quietly = TRUE)) {
+    install.packages("BiocManager")
+  }
+  BiocManager::install("BiocCheck")
+  library(BiocCheck)
 }
 
 # [END]
