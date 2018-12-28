@@ -18,7 +18,7 @@
     # optionsToSet <- !(names(optRpt) %in% names(options()))
     #
     # if(any(optionsToSet)) {
-    #     options(optShi[optionsToSet])
+    #     options(optRpt[optionsToSet])
     # }
 
     invisible()
@@ -26,9 +26,14 @@
 
 
 .onAttach <- function(libname, pkgname) {
-  # Startup message
-  m <- character()
-  m[1] <- "\nWelcome to <your package name>.\n"
+  #  Startup message
+  #  This works, but only once per session since there seems to be a bug in
+  #  RStudio. cf. https://github.com/r-lib/devtools/issues/1442
+  m <- sprintf("\nWelcome: this is the %s package.\n", pkgname)
+  m <- c(m, sprintf("Author(s):\n  %s\n",
+                    utils::packageDescription(pkgname)$Author))
+  m <- c(m, sprintf("Maintainer:\n  %s\n",
+                    utils::packageDescription(pkgname)$Maintainer))
 
   packageStartupMessage(paste(m, collapse=""))
 }
