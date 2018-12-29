@@ -6,7 +6,7 @@ source("./dev/checkEnds.R")
 # download a Bioconductor package if it does not exist locally, (also download
 # the BiocManager if it doesn't exist yet), load the library
 if (! require(BiocCheck, quietly = TRUE)) {
-  if (requireNamespace("BiocManager", quietly = TRUE) == FALSE) {
+  if (! requireNamespace("BiocManager", quietly = TRUE)) {
     install.packages("BiocManager")
   }
   BiocManager::install("BiocCheck")
@@ -18,19 +18,19 @@ cat("Note: execute BiocCheck(getwd())",
 # Make sure the development packages in the DESCRIPTION Suggests: field
 # are present on this machine.
 
-if (requireNamespace("testthat", quietly = TRUE) == FALSE) {
+if (! requireNamespace("testthat", quietly = TRUE)) {
   install.packages("testthat")
 }
-if (require(BiocStyle, quietly = TRUE) == FALSE) {
-  if (requireNamespace("BiocManager", quietly = TRUE) == FALSE) {
+if (! require(BiocStyle, quietly = TRUE)) {
+  if (! requireNamespace("BiocManager", quietly = TRUE)) {
     install.packages("BiocManager")
   }
   BiocManager::install("BiocStyle")
 }
-if (requireNamespace("knitr", quietly = TRUE) == FALSE) {
+if (! requireNamespace("knitr", quietly = TRUE)) {
   install.packages("knitr")
 }
-if (requireNamespace("rmarkdown", quietly = TRUE) == FALSE) {
+if (! requireNamespace("rmarkdown", quietly = TRUE)) {
   install.packages("rmarkdown")
 }
 
