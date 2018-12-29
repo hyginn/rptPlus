@@ -1,7 +1,7 @@
 citHeader("GitHub for latest release; Zenodo for packaged archive with doi.")
 
 bibentry(bibtype = "Manual",
-         title = "{rptPlus}: r package template - enhanced",
+         title = "{rptPlus}: R Package Template - enhanced",
          author = c(
            person("Boris", "Steipe")
            ),
@@ -10,7 +10,7 @@ bibentry(bibtype = "Manual",
          url = "https://github.com/hyginn/rptPlus")
 
 bibentry(bibtype = "Manual",
-         title = "{rptPlus}: r package template - enhanced",
+         title = "{rptPlus}: R Package Template - enhanced",
          author = c(
            person("Boris", "Steipe")
            ),
