@@ -19,6 +19,7 @@ License: file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports:
+    Biostrings,
     shiny,
     Rcpp
 LinkingTo: Rcpp
