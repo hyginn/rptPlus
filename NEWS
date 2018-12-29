@@ -1,0 +1,19 @@
+Changes in version 0.2.0 (2018-12-28)
+  Added
+    + Support for autoloading package name in tests
+    + First version of vignette completed
+  Changed
+    + Updated README.md re. tests
+    + Changed ./inst/NEWS.md to ./NEWS to make BiocCheck happy (until R 3.6)
+  Removed
+    + Removed requirement to edit test package explicitly
+
+
+Changes in version 0.1.0 (2018-12-27)
+
+  Added
+    + Support for autoloading development utilities and libraries
+    + ./inst/NEWS.md example
+    + ./inst/CITATION example
+    + a sample vignette and vignette building instructions
+    + examples of exported and non-exported data
