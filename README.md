@@ -305,17 +305,20 @@ Verify that `checkEnds()` is listed as a function in your RStudio project's "Env
 
 ### 2.6.2 `NEWS`
 
-A `NEWS` file contains condensed information on significant changes to your code for every release. It is a standard convenience for users and a requirement of Bioconductor guidelines. CRAN allows a plain-text `./NEWS` or `./inst/NEWS` file, but [Bioconductor requires](http://bioconductor.org/developers/package-guidelines/#news) release information to be provided in markdown format (using [the **CommonMark** markdown specification](https://commonmark.org/)) in `./inst/NEWS.md`. This is also acceptable to CRAN.
+A `NEWS` file contains condensed information on significant changes to your code for every release. It is a standard convenience for users and a requirement of Bioconductor guidelines. CRAN allows a plain-text `./NEWS` or `./inst/NEWS` files or `./inst/NEWS.md` in markdown format (using [the **CommonMark** markdown specification](https://commonmark.org/)), but [Bioconductor requires](http://bioconductor.org/developers/package-guidelines/#news) release information to be provided in `./NEWS`.
 
 **To keep this functionality in your package:**
 
-- continuously edit `./inst/NEWS.md` with your release information. It is good practice to [tag your releases](https://git-scm.com/book/en/v2/Git-Basics-Tagging) with `git`, then you can review your commit messages to figure out what was added when and condense that information into your `./inst/NEWS.md` file. 
+- continuously edit `./NEWS` with your release information. It is good practice to [tag your releases](https://git-scm.com/book/en/v2/Git-Basics-Tagging) with `git`, then you can review your commit messages to figure out what was added when and condense that information into your `./NEWS` file. 
 
-<!-- ToDo: once R 3.6 witht he new tools functions has been released, update with validation: tools:::.build_news_db_from_package_NEWS_md("./inst/NEWS.md") -->
+**Validate**
+- In the **Build** pane, choose **More** ▷ **Clean and Rebuild**. Then  type `utils::news(package = "<your-package-name>")` into the console. Your `NEWS` file should open in the **Help** pane.
+
+<!-- ToDo: once R 3.6 witht the new tools functions has been released, update with validation: tools:::.build_news_db_from_package_NEWS_md("./inst/NEWS.md"). It's a good idea to be able to include references. -->
 
 **To remove this functionality from your package:**
 
-- Delete `./inst/NEWS.md`.
+- Delete `./NEWS`.
 
 &nbsp;
 
@@ -401,25 +404,70 @@ Since such data files do not normally contain much descriptive information, do y
 
 ### 2.6.4 Adding a Vignette
 
-Packages must contain documentation about the purpose of a package, what its use cases are and how they support the greater context of a user's needs. Simply collating the help files of a package's functions **is not credible documentation**. Great examples for vignettes are included with the `Rcpp` package. Vignettes are optional for CRAN packages, but required for Bioconductor. `rptPlus` contains a Bioconductor-compatible Vignette. It is built ...
+Packages must contain documentation about the purpose of a package, what its use cases are and how they support the greater context of a user's needs. Simply collating the help files of a package's functions **is not credible documentation**. Great examples for vignettes are included with the `Rcpp` package. Vignettes are optional for CRAN packages, but required for Bioconductor. `rptPlus` contains a Bioconductor-compatible Vignette. It is built:
 
 * using sources contained in the `./vignettes` folder,
 * by including `knitr` in the `Suggests` and `VignetteBuilder` fields of the `DESCRIPTION` file;
 * from R markdown code in the `./vignettes/rptPlusVignette.Rmd` file.
 
-The workflow is Write or edit a Vignette in markdown syntax, "knit" it with (`Cmd + Shift + K) while focus is on the edit window, and build your vignette with `devtools::build_vignettes()`. Then use `devtools::build_vignettes()` to build the vignette and vignette index, and move the html output as well as a copy of the Vignette source into the `./doc` folder. (Again: you edit the source in the `./vignettes` folder, it gets built and distributed via the `./doc` folder.). Vignettes can only be browsed from installed packages, or if the libarry path is specified. Won't work from within project but can preview
+You can open the Vignette source in `./vignettes/rptPlusVignette.Rmd` and explore the syntax.
 
-build -> more ... -> build source package  (puts file into parent directory).
-install.packages("../rptPlus_0.1.0.tar.gz", repos = NULL)
-vignette(package = "rptPlus", lib.loc = "..")
-vignette(topic = "rptplus", package = "rptPlus", lib.loc = "..")
+**To add a Vignette to your package:**
+
+Follow this workflow to add a Vignette to your package:
+
+1. Make a copy of `./vignettes/rptPlusVignette.Rmd` and edit it following the instructions in the Vignette itself. At first, edit only the header information and metadata, then continue with the installation steps below, to verify that you have a "known-good-state" to continue from. 
+2. "knit" your Vignette with (`Cmd + Shift + K`, or by clicking the **Knit** icon at the top of the edit pane) to verify what you are doing, and/or check the result by pasting the URL to `knitr`'s output from the **R Markdown** tab of the console into your normal browser;
+3. When you are satisfied with your Vignette, build it with `devtools::build_vignettes()`. This builds your Vignettes and the Vignette index, and moves the html output as well as a copy of the Vignette source into the `./doc` folder. (To repeat: you edit the source in the `./vignettes` folder, it gets built and distributed via the `./doc` folder.).
+
+**Validate the Vignette Index**
+`vignette(package = "rptPlus", lib.loc = "..")` opens the index in a viewer for the "local" library. It should contain the original `rptPlusVignette` and your own Vignette.
+
+4. Install your package: in order for `browseVignettes()` or viewing a specific vignette with `vignette(<vignette-name>) to work, your package needs to be installed in the default R library path. You can do this by typing `devtools::install(build_vignettes = TRUE)` in the console. 
+
+**Validate your Vignette installation**
+
+All of the following should work:
+
+- `vignette(package = "rptPlus")` opens the Vignette index viewer (pointed to the default R library path);
+- `browseVignettes(package = "rptPlus")` shows vignettes of the package in your browser, clicking on HTML should load the Vignette;
+- both `vignette(topic = "rptPlusVignette", package = "rptPlus")` and `vignette("rptPlusVignette")` should load the Vignette in the **Help** pane.
+
+**To remove Vignette support from your package**
+
+- Delete the `./vignettes` folder and all of its contents;
+- Delete any Vignette-related files from the `./doc` folder (remove it if it is empty);
+- Remove the following lines from `.Rprofile`:
+```r
+if (! require(BiocStyle, quietly = TRUE)) {
+  if (! requireNamespace("BiocManager", quietly = TRUE)) {
+    install.packages("BiocManager")
+  }
+  BiocManager::install("BiocStyle")
+}
+if (! requireNamespace("knitr", quietly = TRUE)) {
+  install.packages("knitr")
+}
+if (! requireNamespace("rmarkdown", quietly = TRUE)) {
+  install.packages("rmarkdown")
+}
+```
+- Modify the `DESCRIPTION` file as follows:
+
+```diff
+Suggests:
+-    testthat,
++    testthat
+-    BiocStyle,
+-    knitr,
+-    rmarkdown
+```
 
 
-Once installed in the default libraries, list available vignettes with `browseVignettes(package = "rptPlus")` see all vignettes of the package with `vignette(package = "rptPlus")` and view a specific vignette with e.g. `vignette("rptplus")`.
 
 
 
-* a sample "vignette";
+
 * installing Bioconductor packages;
 * biocViews;
 * a secure approach to credentials;
