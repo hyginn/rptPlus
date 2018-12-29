@@ -2,7 +2,7 @@
 % Please edit documentation in R/makeSeq.R
 \name{makeSeq}
 \alias{makeSeq}
-\title{\code{makeSeq} output a random mRNA sequence.}
+\title{\code{makeSeq} output a random DNA sequence.}
 \usage{
 makeSeq(len, useInit = TRUE, useStop = TRUE, alphabet = c("A", "C",
   "G", "T"), p = rep(0.25, 4), seed = Sys.time())

@@ -4,7 +4,7 @@
 \name{rptPlus}
 \alias{rptPlus}
 \alias{rptPlus-package}
-\title{rptPlus: R Package Template with extars.}
+\title{rptPlus: R Package Template - enhanced}
 \description{
 The rptPlus template package includes support for shiny and Rcpp functions.
 The "rptPlus.R" file is a dummy function whose purpose it is to contain
