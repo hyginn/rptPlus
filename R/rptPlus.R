@@ -1,4 +1,4 @@
-#' rptPlus: R Package Template with extars.
+#' rptPlus: R Package Template - enhanced
 #'
 #' The rptPlus template package includes support for shiny and Rcpp functions.
 #' The "rptPlus.R" file is a dummy function whose purpose it is to contain
@@ -11,3 +11,5 @@
 #' @useDynLib rptPlus
 #' @importFrom Rcpp sourceCpp
 NULL
+
+# [END]
