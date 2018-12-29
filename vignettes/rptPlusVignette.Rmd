@@ -12,14 +12,29 @@ abstract: >
 output:
   BiocStyle::html_document:
     toc: true
+    toc_float: true
     fig_caption: yes
 vignette: >
   %\VignetteIndexEntry{The rptPlus Sample Vignette}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+references:
+- id: steipe2018
+  title: 'rptPlus: R Package Template - enhanced'
+  author:
+  - family: Steipe
+    given: Boris
+    orcid: 0000-0002-1134-6758
+  container-title: '[R package](https://github.com/hyginn/rptPlus)'
+  URL: 'https://github.com/hyginn/rptPlus'
+  DOI: TBD
+  type: no-type
+  issued:
+    year: 2018
+    month: 12
 ---
 
-<!--- this inline style is supports diff-like highlighting -->
+<!--- this inline style supports diff-like highlighting -->
 <style>
   .add {
     color: #22863a;
@@ -37,15 +52,23 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
-# knitr knits in a new session with empty global workspace. To make
-# your package functions available in the vignette, you have to load
-# the library. The following two lines should accomplish this without manual
-# intervention:
+
+# knitr knits in a new session with an empty global workspace after setting its
+# working directory to ./vignettes. To make your package functions available in
+# the vignette, you have to load the library. The following two lines should
+# accomplish this without manual intervention:
 pkgName <- trimws(gsub("^Package:", "", readLines("../DESCRIPTION")[1]))
 library(pkgName, character.only = TRUE)
 
 ```
 
+&nbsp;
+
+<div style="font-size:90%;border:solid 1px #337ab7;background-color:#FAFBFC;margin-right:0px;">
+There are many links and references in this document. If you find anything here ambiguous, inaccurate, outdated, incomplete, or broken, please [file an issue](https://github.com/hyginn/rpt/issues)!
+</div>
+
+&nbsp;
 
 # About this Vignette
 
@@ -123,11 +146,34 @@ abstract: >
 
 ### Text
 
-Text in this Vignette is written in R Markdown format. 
+Text in this Vignette is written in R Markdown format. This is reasonably lightweight and intuitive, for details refer to the many documents linked in Section \@ref(further-reading) (Further reading) and study the examples in this document. 
 
-<!-- quotation -->
-> "Science is built up with facts, as a house is with stones. But a collection of facts is no more a science than a heap of stones is a house."
-_(Henri Poincaré: La Science et l'hypothèse.)_
+<!-- quotation and a footnote-->
+> A good Vignette is all about workflow. It addresses the divine and elusive **why** of documentation. To paraphrase Henri Poincaré: *a useful package is made from functions as a house is with stones. But a collection of functions is no more useful in itself than a heap of stones makes a house.*[^1] Connecting workflow upstream and downstream is the essence of good software, it is the task of the Vignette to make your implicit ideas explicit.
+
+[^1]: _"Science is built up with facts, as a house is with stones. But a collection of facts is no more a science than a heap of stones is a house."_ [Henri Poincaré](https://en.wikiquote.org/wiki/Henri_Poincar%C3%A9).
+
+
+### Links
+
+Easily accessible cross-references are the lifeblood of academic publishing. Use references liberally to make access to material for in-depth exploration easy.
+
+- **cross references within** the document can be made to figures, tables, equations and section headers (see [here](https://bioconductor.org/packages/release/bioc/vignettes/BiocStyle/inst/doc/AuthoringRmdVignettes.html#9_cross-references)). But since a markdown document is also an HTML document, you can flexibly create "anchors" anywhere in the document with `<a name="<some-id>"><some-text></a>` and link to them either with markdown syntax: `[<linked-text>](#<some-id>)` or with HTML syntax: `<a href="#<some-id>"><linked-text></a>`. For example [this link](#a1) as well as <a href="#a1">this link</a> both lead to an anchor at the top of the "Further reading" section (however with differing behaviour regarding where the top of the browser window is positioned).
+
+- **external links** can also be made in markdown and HTML, the markdown syntax is `[<linked-text>](<URL>)`. For example [this link](https://gist.github.com/hyginn/c15e697223c45b5e16b3e90300807e45) leads to my "Gist" for link-checking code in R.
+
+- `BiocStyle` provides [macros](https://bioconductor.org/packages/release/bioc/vignettes/BiocStyle/inst/doc/AuthoringRmdVignettes.html#4_style_macros) for **linking to other R packages** in BioConductor, CRAN, on GitHub and elsewhere: 
+
+Table: (\#tab:tMacros) BiocStyle link macros
+
+For ...      | type ...                                  | to get:
+------------ | ----------------------------------------- | ------------------------------
+Bioconductor:|`` ``r "r "`Biocpkg("BiocStyle")` ``       | `r Biocpkg("BiocStyle")`
+CRAN:        |`` ``r "r "`CRANpkg("knitr")` ``           |`r CRANpkg("knitr")`
+GitHub:      |`` ``r "r "`Githubpkg("hyginn/rptPlus")` ``|`r Githubpkg("hyginn/rptPlus")`
+
+The above example also shows how to caption a table and place an anchor for a link (for the link itself, see below).
+
 
 ### Math
 
@@ -137,7 +183,7 @@ The golden ratio $\phi$ <!-- this is an inline equation: single $ delimiters -->
 
 $$ \frac{\left(1 + \sqrt{5}\right)}{2} $$ <!-- this is a block equation: double $$ delimiters -->
 
-A "golden spiral" [^1] <!-- here is a footnote --> is a logarithmic spiral whose radius diminishes by $\frac{1}{\phi}$ every quarter turn. It is thus inscribed into a "golden rectangle". The golden spiral with initial radius 1 is defined by the polar equation
+A "golden spiral" [^2] <!-- here is a footnote --> is a logarithmic spiral whose radius diminishes by $\frac{1}{\phi}$ every quarter turn. It is thus inscribed into a "golden rectangle". The golden spiral with initial radius 1 is defined by the polar equation
 <!-- the preferred way to write block equations is to use latex commands directly, and label each equation block. BiocStyle then automatically adds equation numbers.-->
 
 \begin{equation}
@@ -146,13 +192,13 @@ A "golden spiral" [^1] <!-- here is a footnote --> is a logarithmic spiral whose
 \end{equation}
 
 
-[^1]: <!-- Footnote text. This footnote is rendered as a margin note courtesy of BiocStyle -->cf. ["Golden spiral" on Wikipedia](https://en.wikipedia.org/wiki/Golden_spiral).
+[^2]: <!-- Footnote text. This footnote is rendered as a margin note courtesy of BiocStyle -->cf. ["Golden spiral" on Wikipedia](https://en.wikipedia.org/wiki/Golden_spiral).
 
 ### Figures
 
 The block of R code below is executed when the document is knit, and the resulting plot is  shown. The code first sets up `N` angles `theta` and then computes the radius according to  \@ref(eq:phiPolar) <!-- here is a back-reference to equation (1) -->. Polar coordinates are then converted to cartesian coordinates and scaled to the canonical golden rectangle. We plot an empty frame, draw the rectangle, draw segments for the enclosed golden sections, and finally draw the line of the spiral.
 
-```{r, fig.cap="The golden spiral is shown in its enclosing golden rectangle."}
+```{r, fig.show="hold", fig.cap="The golden spiral is shown in its enclosing golden rectangle."}
 phi <- ((1 + sqrt(5)) / 2)^(1:-8)           # ten decreasing powers of phi
 tStart <- -0.233
 tEnd <- 8 * pi
@@ -200,7 +246,7 @@ Printing tables is straightforward using the defaults in `knitr::kable()`. But g
 
 Example 1. The standard genetic code is provided as sample data with `rptPlus`:
 
-```{r, echo=FALSE, results='asis'}
+```{r, echo=TRUE, results='asis'}
 x <- matrix(paste0(names(rptGC), ": ", rptGC), ncol=4)
 nuc <- c("A", "G", "C", "T")
 colnames(x) <- paste0(nuc, "..", sep ="")
@@ -213,18 +259,29 @@ knitr::kable(x,
 
 Example 2. Printing the values in `./inst/extdata/test_lseq.dat`
 
-```{r, echo=FALSE, results='asis'}
+```{r, echo=TRUE, results='asis'}
 x <- readLines("../inst/extdata/test_lseq.dat")
 knitr::kable(x, caption = "Five log-spaced numbers in [1, 10]")
 ```
 
+Tables automatically receive anchors you can link to, for example the link to Table 1 is `link\@ref(tab:tMacros)` and it appears thus: Table \@ref(tab:tMacros).
+
+# Bibliographies and Citations
+
+There are two ways to manage bibliographies: the common way is to supply an external bibliography file in the `./vignettes` folder, (for details see [here](https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html)), but one can also keep short bibliographies inline, in the `YAML` formatted metadata block, as we do above (cf. [here](http://blog.martinfenner.org/2013/07/30/citeproc-yaml-for-bibliographies/)). This document's YAML metadata block contains a citation derived from the package's `citation()` information [@steipe2018]. To cite a work in your text, type `[@<reference-id>]`. References will be compiled after the `# References` section of your document.
+
 
 # Further reading
+<a name="a1"></a>
 
-- The [Rstudio Markdown pages](https://rmarkdown.rstudio.com/)
+- [Get started with Rstudio Markdown](https://rmarkdown.rstudio.com/)
+- A collection of [Rmarkdown Articles](https://rmarkdown.rstudio.com/articles.html)
 - The [RStudio R markdown cheat sheet](https://www.rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf)
 - The [RStudio R markdown reference guide](https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf)
-- [Detailed **"chunk**" options](https://yihui.name/knitr/options/)
-- The [Bioconductor LaTEX style](https://bioconductor.org/packages/release/bioc/vignettes/BiocStyle/inst/doc/LatexStyle2.pdf)
+- [Detailed **"chunk"** options](https://yihui.name/knitr/options/)
+- The [Bioconductor LaTEX style reference](https://bioconductor.org/packages/release/bioc/vignettes/BiocStyle/inst/doc/LatexStyle2.pdf)
+
+<!-- the "References"" section determines placement of the bibliography -->
+# References
 
 <!-- End -->
