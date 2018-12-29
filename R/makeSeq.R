@@ -1,6 +1,6 @@
 # makeSeq.R
 
-#' \code{makeSeq} output a random mRNA sequence.
+#' \code{makeSeq} output a random DNA sequence.
 #'
 #' \code{makeSeq} outputs a string that contains a random sequence of characters (A/C/G/T by default). By default the first three letters are "ATG" and the last three letters are a stop-codon ("TAA", "TAG" or "TGA"). The number of characters in the output is three times the \code{len} argument, i.e. it condains \code{len} codons
 #'
