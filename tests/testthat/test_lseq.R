@@ -5,8 +5,8 @@ context("lseq")
 
 # ==== BEGIN SETUP AND PREPARE =================================================
 #
-# load comparison data from a file in ./inst/exdata using pkgName which was
-# was defined in helper-functions.R
+# load comparison data from a file in ./inst/exdata using pkgName which
+# was defined in ../helper-functions.R
 
 tmp <- as.numeric(readLines(system.file("extdata",
                                         "test_lseq.dat",
