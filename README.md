@@ -6,6 +6,9 @@
 
 ----
 
+This README contains detailed information about how to work with this package. The associated Vignette can be previewed [here](http://htmlpreview.github.io/?https://github.com/hyginn/rptPlus/blob/master/doc/rptPlusVignette.html). The package can be installed in RStudio with `devtools::install_github("hyginn/rptPlus", build_opts = c("--no-resave-data", "--no-manual"))` however this is not likely to be very useful, this repository is meant to be downloaded and modified.
+
+
 ##### If any of this information is ambiguous, inaccurate, outdated, or incomplete, please [file an issue](https://github.com/hyginn/rptPlus/issues)!
 
 ----
@@ -52,7 +55,7 @@ The [`rpt` package](https://github.com/hyginn/rpt) an RStudio project that conta
 
 * a way to have your project behave differently during development and after deployment;
 * package information in `NEWS` and `CITATION` files;
-* a sample "vignette";
+* a sample "Vignette";
 * installing Bioconductor packages;
 * packaged data files;
 * a secure approach to credentials;
@@ -286,7 +289,9 @@ You might want to work with a function that you use for development, but that sh
 
 For example, my [R style guide](http://steipe.biochemistry.utoronto.ca/abc/index.php/RPR-Coding_style) dictates that every source file needs to include a comment `# [END]` as the last line, to verify that the file has been completely transmitted whenever it is shared. Of course, this only works if **all** files follow this convention, if some are forgotten then those appear to be incomplete. Therefore I use a function `checkEnds()` which is defined in `./dev/checkEnds.R`. The function is `source()`ed from `.Rprofile` so I have it available when I am writing code, but it is not part of the actual package objectives so I don't deploy it in the package. Both the `./dev` directory and the `.Rprofile` file are mentioned in `.Rbuildignore`, so both are not included in the final package. 
 
-This is especially useful for loading packages. Since I usually need to run checks for Bioconductor compatibility, I also load the `BiocCheck` package. That's convenient, but obviously does not need to be included in the package itself. Also, there are a number of `Suggests:` packages mentioned in the `DESCRIPTION` file. Since these are not required for the actual package function, the package installer does not download them. Butt we do need them e.g. for building a vignette. Thus we install them from `.Rprofile` if they are not already present on your machine.
+This is especially useful for loading packages. Since I usually need to run checks for Bioconductor compatibility, I also load the `BiocCheck` package. That's convenient, but obviously does not need to be included in the package itself. Also, there are a number of `Suggests:` packages mentioned in the `DESCRIPTION` file. Since these are not required for the actual package function, the package installer does not download them. But we do need them e.g. for building a vignette. Thus we chack and warn from `.Rprofile` if they are not already present on your machine.
+
+On startup, you will see a few messages about installed packages, this come from `.Rprofile`.
 
 Verify that `checkEnds()` is listed as a function in your RStudio project's "Environment" pane. If it is missing, either you don't have an `.Rprofile` file, or something caused `source()`ing the file to be aborted during startup.
 
@@ -423,7 +428,7 @@ Follow this workflow to add a Vignette to your package:
 **Validate the Vignette Index**
 `vignette(package = "rptPlus", lib.loc = "..")` opens the index in a viewer for the "local" library. It should contain the original `rptPlusVignette` and your own Vignette.
 
-4. Install your package: in order for `browseVignettes()` or viewing a specific vignette with `vignette(<vignette-name>) to work, your package needs to be installed in the default R library path. You can do this by typing `devtools::install(build_vignettes = TRUE)` in the console. 
+4. Install your package: in order for `browseVignettes()` or `vignette(<vignette-name>) to work, your package needs to be installed in the default R library path. You can do this by typing `devtools::install(build_vignettes = TRUE)` in the console. (**Note**: To properly build vignettes when installing from GitHub with `devtools::install_github()`, you need to turn the default `--no-build-vignettes` argument for the build options off. Issue the command: `devtools::install_github("<your-repository>", build_opts = c("--no-resave-data", "--no-manual"))`.)
 
 **Validate your Vignette installation**
 
@@ -433,25 +438,18 @@ All of the following should work:
 - `browseVignettes(package = "rptPlus")` shows vignettes of the package in your browser, clicking on HTML should load the Vignette;
 - both `vignette(topic = "rptPlusVignette", package = "rptPlus")` and `vignette("rptPlusVignette")` should load the Vignette in the **Help** pane.
 
+**Note:** one does not package a Vignette with the R package, rather Vignettes are dynamically built after downloading the package. Thus it makes no sense to add the html-rendered Vignette to your `git` repository: on your local machine you are simply rendering the output of your `.Rmd` file, and the package user does not need it. Normally the directories `doc` and `inst/doc` are therefore mentioned in the `.Gitignore` file and not committed to your repository. However, I am committing an updated version of the Vignette from time to time to hold the html file on GitHub, so that users of the `rptPlus` package can preview the result. To view `.html` files from a GitHub repository, use the preview function at `https://htmlpreview.github.io/`: the `rptPlusVignette` page thus can be accessed at <http://htmlpreview.github.io/?https://github.com/hyginn/rptPlus/blob/master/doc/rptPlusVignette.html>. You might add `doc` and `inst/doc` to your `.Gitignore` file for your own development purposes however to keep the size of your local repository reasonably small.
+
 **To remove Vignette support from your package**
 
 - Delete the `./vignettes` folder and all of its contents;
 - Delete any Vignette-related files from the `./doc` folder (remove it if it is empty);
-- Remove the following lines from `.Rprofile`:
-```r
-if (! require(BiocStyle, quietly = TRUE)) {
-  if (! requireNamespace("BiocManager", quietly = TRUE)) {
-    install.packages("BiocManager")
-  }
-  BiocManager::install("BiocStyle")
-}
-if (! requireNamespace("knitr", quietly = TRUE)) {
-  install.packages("knitr")
-}
-if (! requireNamespace("rmarkdown", quietly = TRUE)) {
-  install.packages("rmarkdown")
-}
-```
+- Remove from `.Rprofile` the functions checking for and loading:
+    - `BiocManager`
+    - `BiocStyle`
+    - `knitr`
+    - `rmarkdown`
+
 - Modify the `DESCRIPTION` file as follows:
 
 ```diff
@@ -464,12 +462,18 @@ Suggests:
 ```
 
 
+### 2.6.5 Importing Bioconductor Packages
 
-
-
+Add biocViews to DESCRIPTION. Then importing works.
+https://bioconductor.org/developers/how-to/biocViews/
 
 * installing Bioconductor packages;
 * biocViews;
+
+### 2.6.6 A Secure Approach to Credentials
+
+Somew development needs login credentials
+
 * a secure approach to credentials;
 * compiled `C++` code;
 * a packaged closure;
@@ -543,8 +547,8 @@ tests/testthat.R               <- the script that runs the tests
 
 # 5 FAQ
 
-##### How can I import Bioconductor packages?
-Work with Bioconductor packages is described in the [`rptPlus`](https://github.com/hyginn/rptPlus) package template.
+##### TBC
+...
 
 &nbsp;
 
