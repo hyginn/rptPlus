@@ -47,8 +47,10 @@ if (requireNamespace("BiocStyle2", quietly = TRUE)) {    # check and load
 
 # ==== CRAN packages
 
-# Check if the CRAN packages in DESCRIPTION  Suggests:
-# are present on this machine, warn if they are not, load them if they are.
+# Check if the CRAN packages in DESCRIPTION - Suggests: are present on this
+# machine, warn if they are not, load them if they are. This is done in a loop
+# over requested library names. Note the syntax for loading a library from a
+# variable.
 
 needCRAN <- c("testthat2", "knitr", "rmarkdown2")
 
