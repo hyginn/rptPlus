@@ -1,6 +1,6 @@
 Changes in version 0.3.0 (2018-12-30)
   Added
-    + ...
+    + Describe process to install packages from Bioconductor
   Changed
     + Refactor .Rprofile to avoid installing packages during startup.
     + ...

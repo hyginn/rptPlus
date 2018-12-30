@@ -291,7 +291,7 @@ For example, my [R style guide](http://steipe.biochemistry.utoronto.ca/abc/index
 
 This is especially useful for loading packages. Since I usually need to run checks for Bioconductor compatibility, I also load the `BiocCheck` package. That's convenient, but obviously does not need to be included in the package itself. Also, there are a number of `Suggests:` packages mentioned in the `DESCRIPTION` file. Since these are not required for the actual package function, the package installer does not download them. But we do need them e.g. for building a vignette. Thus we chack and warn from `.Rprofile` if they are not already present on your machine.
 
-On startup, you will see a few messages about installed packages, this come from `.Rprofile`.
+On startup, you will see a few messages about installed packages, these come from `.Rprofile`.
 
 Verify that `checkEnds()` is listed as a function in your RStudio project's "Environment" pane. If it is missing, either you don't have an `.Rprofile` file, or something caused `source()`ing the file to be aborted during startup.
 
@@ -319,7 +319,7 @@ A `NEWS` file contains condensed information on significant changes to your code
 **Validate**
 - In the **Build** pane, choose **More** ▷ **Clean and Rebuild**. Then  type `utils::news(package = "<your-package-name>")` into the console. Your `NEWS` file should open in the **Help** pane.
 
-<!-- ToDo: once R 3.6 witht the new tools functions has been released, update with validation: tools:::.build_news_db_from_package_NEWS_md("./inst/NEWS.md"). It's a good idea to be able to include references. -->
+<!-- ToDo: once R 3.6 with the new tools functions has been released, update with validation: tools:::.build_news_db_from_package_NEWS_md("./inst/NEWS.md"). It's a good idea to be able to include references. -->
 
 **To remove this functionality from your package:**
 
@@ -347,7 +347,7 @@ Basic package citation information can be extracted from your `DESCRIPTION` file
 
 ### 2.6.4.1 Exported Data
 
-Exported data is kept in the `./data` directory as an `.RData` file. It is made available to the user through a `load` operation and then exists in the package namespace, much like the package's loaded functions. However, it also needs to be documented, and to produce the required documentation requires a second file in the `./R` directory. To produce the file, create the 
+Exported data is kept in the `./data` directory as an `.RData` file. It is made available to the user through a `load` operation and then exists in the package namespace, much like the package's loaded functions. However, it also needs to be documented, and to produce the required documentation requires a file in the `./R` directory. To produce the file, create a file with a valid `Roxygen2` header, just like a function script, that describes the data. Name it with `<name-of-your-data-object>.R`, make sure you have an `@export` field. The actual script body is just a `NULL` statement.
 
 **To use exported data in your package:**
 
@@ -383,7 +383,7 @@ save(rptGC, file="./data/rptGC.RData")
 **To remove exported data from your package:**
 
 - Delete the `./data` directory;
-- delete the data description file `./R/rptGC.R`;
+- delete the example data description file `./R/rptGC.R`;
 - delete `./man/rptGC.Rd`.
 
 
@@ -399,7 +399,7 @@ system.file("extdata",
             mustWork = TRUE)
 ```
 
-Since such data files do not normally contain much descriptive information, do yourself a favour and place the script that produced the dataset in `./inst/scripts`!
+Since such data files do not normally contain enough descriptive information, do yourself a favour and place the script that produced the dataset in `./inst/scripts`!
 
 **To remove exported data from your package:**
 
@@ -428,7 +428,7 @@ Follow this workflow to add a Vignette to your package:
 **Validate the Vignette Index**
 `vignette(package = "rptPlus", lib.loc = "..")` opens the index in a viewer for the "local" library. It should contain the original `rptPlusVignette` and your own Vignette.
 
-4. Install your package: in order for `browseVignettes()` or `vignette(<vignette-name>) to work, your package needs to be installed in the default R library path. You can do this by typing `devtools::install(build_vignettes = TRUE)` in the console. (**Note**: To properly build vignettes when installing from GitHub with `devtools::install_github()`, you need to turn the default `--no-build-vignettes` argument for the build options off. Issue the command: `devtools::install_github("<your-repository>", build_opts = c("--no-resave-data", "--no-manual"))`.)
+4. Install your package: in order for `browseVignettes()` or `vignette(<vignette-name>) to work, your package needs to be installed in the default R library path. You can do this by typing `devtools::install(build_vignettes = TRUE)` in the console. (**Note**: To properly build vignettes when installing from GitHub with `devtools::install_github()`, you need to turn the default `--no-build-vignettes` argument for the build options off. Issue the command: `devtools::install_github("<your-repository>", build_opts = c("--no-resave-data", "--no-manual"))`.<sup id="af6">[6](#f6)</sup>)
 
 **Validate your Vignette installation**
 
@@ -438,7 +438,7 @@ All of the following should work:
 - `browseVignettes(package = "rptPlus")` shows vignettes of the package in your browser, clicking on HTML should load the Vignette;
 - both `vignette(topic = "rptPlusVignette", package = "rptPlus")` and `vignette("rptPlusVignette")` should load the Vignette in the **Help** pane.
 
-**Note:** one does not package a Vignette with the R package, rather Vignettes are dynamically built after downloading the package. Thus it makes no sense to add the html-rendered Vignette to your `git` repository: on your local machine you are simply rendering the output of your `.Rmd` file, and the package user does not need it. Normally the directories `doc` and `inst/doc` are therefore mentioned in the `.Gitignore` file and not committed to your repository. However, I am committing an updated version of the Vignette from time to time to hold the html file on GitHub, so that users of the `rptPlus` package can preview the result. To view `.html` files from a GitHub repository, use the preview function at `https://htmlpreview.github.io/`: the `rptPlusVignette` page thus can be accessed at <http://htmlpreview.github.io/?https://github.com/hyginn/rptPlus/blob/master/doc/rptPlusVignette.html>. You might add `doc` and `inst/doc` to your `.Gitignore` file for your own development purposes however to keep the size of your local repository reasonably small.
+**Note:** one does not *package* a Vignette with the R package distribution, rather Vignettes are dynamically built after downloading the package. Thus it makes no sense to add the html-rendered Vignette to your `git` repository: on your local machine you are simply rendering the output of your `.Rmd` file, and the package user does not need it. Normally the directories `doc` and `inst/doc` are therefore mentioned in the `.Gitignore` file and not committed to your repository. However, I am committing an updated version of the Vignette from revision to revision, to hold the html file on GitHub so that users of the `rptPlus` package can preview the result. To view `.html` files from a GitHub repository, use the preview function at `https://htmlpreview.github.io/`: the `rptPlusVignette` page thus can be accessed at <http://htmlpreview.github.io/?https://github.com/hyginn/rptPlus/blob/master/doc/rptPlusVignette.html>. You might add `doc` and `inst/doc` to your `.Gitignore` file for your own development purposes however to keep the size of your local repository reasonably small.
 
 **To remove Vignette support from your package**
 
@@ -464,8 +464,33 @@ Suggests:
 
 ### 2.6.5 Importing Bioconductor Packages
 
-Add biocViews to DESCRIPTION. Then importing works.
-https://bioconductor.org/developers/how-to/biocViews/
+CRAN and Bioconductor are the two curated repositories from which we usually install trusted software. In the life-sciences world, we can't live without using both. However, while CRAN-hosted packages mentioned in the `Imports:` field of `DESCRIPTION` are automatically installed from CRAN, merely mentioning a Bioconductor package is not itself sufficient to install from Bioconductor. The trick to install them is surprising and simple: you merely need to add a [`biocViews:`](https://www.bioconductor.org/packages/devel/BiocViews.html) field to `DESCRIPTION`. Such a [field with keywords](https://bioconductor.org/developers/how-to/biocViews/) that define how a package fits into the Bioconductor project is required for all Bioconductor packages. But here we simply use it for its side-effect of directing the package installer to search Bioconductor as well as CRAN for packages. 
+
+
+**To be able to import Bioconductor packages in addition to CRAN packages:**
+
+- Leave the following line intact in `DESCRIPTION` (or [add to it](https://bioconductor.org/developers/how-to/biocViews/)) if you are actually developing a Bioconductor package).
+
+```
+biocViews: Software
+```
+
+
+**To remove Bioconductor installation support:**
+
+- Change the `DESCRIPTION` file as follows:
+
+```diff
+LazyData: true
+-   biocViews: Software
+Imports:
+-       Biostrings,
+    shiny,
+    Rcpp
+LinkingTo: Rcpp
+```
+
+
 
 * installing Bioconductor packages;
 * biocViews;
@@ -566,6 +591,14 @@ tests/testthat.R               <- the script that runs the tests
 <b id="af4">4</b> A commonly agreed on coding style is to use 80 character lines or shorter. That's often a bit of a challenge when you use spaces around operators, expressive variable names, and 4-space indents. Of those three, the 4-space indents are the most dispensable; using 2-space indents works great and helps keep lines short enough. There seems to be a recent trend towards 2-spaces anyway. As for tabs vs. spaces: I write a lot of code that is meant to be read and studied, thus I need more control over what my users see. Therefore I use spaces, not tabs. YMMV, change your Project Options if you feel differently about this. [↩](#a4)
 
 <b id="af5">5</b> Displaying the startup message (as of this writing) works only once per session due to a long-standing bug in RStudio. (cf. [here](https://github.com/r-lib/devtools/issues/1442)). To display the message, choose **File** ▷ **Recent Projects...** ▷ **&lt;your-package-name&gt;** to reload your project, then type `library(<your-package-name>)` into the cosole. [↩](#a5)
+
+<b id="af6">6</b>Caution: the parameters for `install()` and `install_github` are surprisingly different. See [here](https://github.com/r-lib/devtools/issues/1896).[↩](#a6)
+
+<b id="af7">7</b>  [↩](#a7)
+
+<b id="af8">8</b>  [↩](#a8)
+
+<b id="af9">9</b>  [↩](#a9)
 
 &nbsp;
 
