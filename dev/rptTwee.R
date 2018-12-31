@@ -44,7 +44,9 @@ rptTwee <- function(path = getwd(),
                     excl = c("^\\.git$",
                              "^\\.git/",
                              "^\\.Rproj.user",
-                             "\\.DS_Store")) {
+                             "\\.DS_Store$",
+                             "\\.o$",
+                             "\\.so$")) {
 
   fad <-  list.files(path = path,
                      recursive = TRUE,
