@@ -1,5 +1,7 @@
 Changes in version 0.3.0 (2018-12-30)
   Added
+    + shiny app support and documentation
+    + Rcpp code files and demo
     + Discuss secure credential management
     + Describe process to install packages from Bioconductor
   Changed
