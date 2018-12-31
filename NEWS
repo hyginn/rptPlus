@@ -1,3 +1,10 @@
+Changes in version 1.0.0 (2018-12-31)
+  Added
+    + made BiocCheck mostly pass
+  Changed
+    + Wrote up all topics in README.md
+    + add sessionInfo() to vignette
+
 Changes in version 0.3.0 (2018-12-30)
   Added
     + shiny app support and documentation

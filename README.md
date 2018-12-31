@@ -27,17 +27,25 @@ package on GitHub and
 
 <!-- TOCbelow -->
 1. About this package:<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;1.1. What it is ...<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;1.2. Who needs it ...<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;1.3. How it works ...<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; 1.1 What it is ...<br/>
 2. Details ...<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;2.0. Prerequisites<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;2.1. A new GitHub project<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;2.2. A new RStudio project<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;2.3. Download the `rpt` files<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;2.4. Customize<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.4.1 Getting attribution right<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;2.5. Save, check, commit, and push<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; 2.1. A new GitHub project<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; 2.2. A new RStudio project<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; 2.3. Download the `rptPlus` files<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; 2.4. Customize the core<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.4.1. Getting attribution right<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; 2.5. Save, check, commit, and push<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; 2.6. Configuring your enhanced modules<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.6.1. Development vs. deployment<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.6.2. `NEWS`<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.6.3. `CITATION`<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.6.4. Packaged Data Files <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.6.5. Adding a Vignette<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.6.6. Importing Bioconductor Packages<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.6.7. A Secure Approach to Credentials<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.6.8. Compiled `C++` code<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.6.9. A Shiny App<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.6.10. Considerations for Reproducible Research<br/>
 3. Develop<br/>
 4. What's in the box ...<br/>
 5. FAQ<br/>
@@ -47,7 +55,6 @@ package on GitHub and
 <!-- TOCabove -->
 
 ----
-
 
 # 1 About this package:
 
@@ -72,7 +79,6 @@ The [`rpt` package](https://github.com/hyginn/rpt) an RStudio project that conta
 * packaged data files;
 * a secure approach to credentials;
 * compiled `C++` code;
-* a packaged closure;
 * a `shiny` app;
 * considerations for reproducible research.
 
@@ -170,9 +176,65 @@ Download a ZIP archive of `rptPlus` and copy all the files over to your project 
 In RStudio, open the `./dev` directory. Open the file `rptTwee.R` and click on  **Source** to load the function. Then type `rptTwee()` into the console. You should get a directory tree that looks approximately like this.
 
 ```
- -- <your-package-name>/
-...
-
+ --<your-package-name>/
+   |__.gitignore
+   |__.Rbuildignore
+   |__.Rprofile
+   |__data/
+      |__rptGC.RData
+   |__DESCRIPTION
+   |__dev/
+      |__checkEnds.R
+      |__functionTemplate.R
+      |__rptTwee.R
+   |__doc/
+      |__rptPlusVignette.html
+      |__rptPlusVignette.R
+      |__rptPlusVignette.Rmd
+   |__inst/
+      |__CITATION
+      |__extdata/
+         |__test_lseq.dat
+      |__scripts/
+         |__benchmarkCodons.R
+         |__scriptTemplate.R
+      |__shiny-scripts/
+         |__rptApp/
+            |__app.R
+   |__LICENSE
+   |__man/
+      |__cpp_codonSplitCpp.Rd
+      |__lseq.Rd
+      |__makeSeq.Rd
+      |__rptGC.Rd
+      |__rptPlus.Rd
+      |__runRptApp.Rd
+   |__Meta/
+      |__vignette.rds
+   |__NAMESPACE
+   |__NEWS
+   |__R/
+      |__lseq.R
+      |__makeSeq.R
+      |__RcppExports.R
+      |__rptGC.R
+      |__rptPlus.R
+      |__runRptApp.R
+      |__zzz.R
+   |__README.md
+   |__<your-package-name>.Rproj
+   |__rptPlus.Rproj
+   |__src/
+      |__codonSplitCpp.cpp
+      |__RcppExports.cpp
+   |__tests/
+      |__testthat.R
+      |__testthat/
+         |__helper-functions.R
+         |__test_lseq.R
+   |__vignettes/
+      |__.gitignore
+      |__rptPlusVignette.Rmd
 ```
 
 If directories or files are missing, figure out where you went wrong.
@@ -357,7 +419,7 @@ Basic package citation information can be extracted from your `DESCRIPTION` file
 
 `rptPlus` contains an example of exported data file, and an example of non-exported data.
 
-### 2.6.4.1 Exported Data
+#### 2.6.4.1 Exported Data
 
 Exported data is kept in the `./data` directory as an `.RData` file. It is made available to the user through a `load` operation and then exists in the package namespace, much like the package's loaded functions. However, it also needs to be documented, and to produce the required documentation requires a file in the `./R` directory. To produce the file, create a file with a valid `Roxygen2` header, just like a function script, that describes the data. Name it with `<name-of-your-data-object>.R`, make sure you have an `@export` field. The actual script body is just a `NULL` statement.
 
@@ -399,7 +461,7 @@ save(rptGC, file="./data/rptGC.RData")
 - delete `./man/rptGC.Rd`.
 
 
-### 2.6.4.2 Non-exported Data
+#### 2.6.4.2 Non-exported Data
 
 **To use non-exported data in your package:**
 
@@ -419,7 +481,7 @@ Since such data files do not normally contain enough descriptive information, do
 
 &nbsp;
 
-### 2.6.4 Adding a Vignette
+### 2.6.5 Adding a Vignette
 
 Packages must contain documentation about the purpose of a package, what its use cases are and how they support the greater context of a user's needs. Simply collating the help files of a package's functions **is not credible documentation**. Great examples for vignettes are included with the `Rcpp` package. Vignettes are optional for CRAN packages, but required for Bioconductor. `rptPlus` contains a Bioconductor-compatible Vignette. It is built:
 
@@ -474,7 +536,7 @@ Suggests:
 ```
 
 
-### 2.6.5 Importing Bioconductor Packages
+### 2.6.6 Importing Bioconductor Packages
 
 CRAN and Bioconductor are the two curated repositories from which we usually install trusted software. In the life-sciences world, we can't live without using both. However, while CRAN-hosted packages mentioned in the `Imports:` field of `DESCRIPTION` are automatically installed from CRAN, merely mentioning a Bioconductor package is not itself sufficient to install from Bioconductor. The trick to install them is surprising and simple: you merely need to add a [`biocViews:`](https://www.bioconductor.org/packages/devel/BiocViews.html) field to `DESCRIPTION`. Such a [field with keywords](https://bioconductor.org/developers/how-to/biocViews/) that define how a package fits into the Bioconductor project is required for all Bioconductor packages. But here we simply use it for its side-effect of directing the package installer to search Bioconductor as well as CRAN for packages, it is just a placeholder.
 
@@ -502,7 +564,7 @@ Imports:
 LinkingTo: Rcpp
 ```
 
-### 2.6.6 A Secure Approach to Credentials
+### 2.6.7 A Secure Approach to Credentials
 
 Any software that needs to connect to private assets such as databases or restricted-access Websites, sooner or later needs login credentials in code. These are typically strings like username/password combinations, or access tokens. You **really** don't want those credentials to appear in plaintext on GitHub, for everyone to see, forever. Here is how to keep your secrets secret.
 
@@ -548,7 +610,7 @@ For more in-depth discussion and alternatives:
 - [Managing secrets](https://cran.r-project.org/web/packages/httr/vignettes/secrets.html) (Hadley Wickham, `httr` Vignette)
 - [Securing Credentials](https://db.rstudio.com/best-practices/managing-credentials/) (RStudio, Databases using R - Best Practices)
 
-### 2.6.7 Compiled `C++` code
+### 2.6.8 Compiled `C++` code
 
 Using `C++` code in your package has been made easy with the `Rcpp` package. What you need to do is to run `Rcpp::sourceCpp("<your-function-name>.cpp")` to compile and link your code, and then call it with `cpp_<your-function-name>()`. However, *distributing* compiled `C++` code with your package is a bit more involved, you need assets that are included here:
 
@@ -596,7 +658,7 @@ Suggests: ...
 - Delete `.R/rptPlus.R` and `.R/RcppExports.R`. 
 
 
-### 2.6.8 A Shiny App
+### 2.6.9 A Shiny App
 
 Shiny apps are great for two purposes: as a part of package documentation they can give your (potential) user a hands-on view into what your package can do. And if you are supporting users who don't code, you can make the workflow of your package available through a GUI.
 
@@ -641,16 +703,36 @@ Imports:
 - Delete `./R/runRptApp`
 
 
-### 2.6.9 Considerations for Reproducible Research
+### 2.6.10 Considerations for Reproducible Research
 
-The label "Reproducible Research" summarizes best practice that derives from the principles of the _scientific method_. Using the methodology implied with this package helps support these goals in multipe ways: reproducibility, writing code that is robust and maintainable, testing, finding the right granularity for code (one concern per function in one file), sharing etc. A topic that must not be forgotten is that code does not only need to be syntacticlly correct, but must also deliver correct results. Such *validation* of results may require comparing results against known true values and can be included in the test routines of the package.
+The label "Reproducible Research" summarizes best practice that derives from the principles of the _scientific method_. Even though this means different things to different scientists (see below), a broad consensus includes
 
+- documenting **that** your analysis works;
+- documenting **how** your analysis works; and
+- documenting **why** your analysis works.
 
+Building a package along the principles laid out in `rptPlus` supports these goals in multipe ways.
+
+#### Documenting **that** your analysis works ...
+
+This is the essential beginning: is your code **correct**, and is your analysis **valid**? Correct code can be supported by unit- and integration tests using the testing infrastructure mapped out in the package. Aim to cover all of your code with tests and test after every change. Keeping a tight link between writing tests and writing code goes a long way towards arriving at well structured, maintainable software; this principle has given rise to [test-driven development methods](https://en.wikipedia.org/wiki/Test-driven_development). Showing that the analysis is valid requires a bit more than showing that your code is correct. Essentially you need to minimally show that your analysis can recover the correct parameters from a dataset. Since the correct parameters are virtually never known in real-world examples, you **must** provide synthetic data, constructed with known properties. The package structure of `rptPlus` gives you 
+- ways to document such data as internal and exported datasets, 
+- a place to store the scripts that generate your data and your model analysis (in `./inst/scripts`),
+- and a way to communicate this part of the analysis, in a Vignette.
+
+#### Documenting **how** your analysis works ...
+
+This is often taken to include exact reproducibility, but the importance of this may be overstated. Obviously the packages you import need to be made explicit. The command `sessionInfo()` in the Vignette documents the loaded packages and versions. If your package critically depends on the exact version of packages, consider using [`packrat`](https://rstudio.github.io/packrat/rstudio.html) for a distributable, self-contained, everything-included project. But it is more important to make it easy to understand what exactly you are doing. Having all the files available (the reason we build this package in the first place), and being able to document what change was made by whom at what time (that's why we use `git`) is a prerequisite. But that does not really explain how everything fits together. For this, a hierarchical approach will help, that combines a high-level summary (perhaps a shiny app or workflow diagram), a mid-level detailed description (in a Vignette or other `R markdown` "literate program"), and at the finest-level, the actual code that produced the analysis (in a script included in `./inst/scripts`). A part of this is to **release** your project in a known-good-state - as a [GitHub release](https://help.github.com/articles/creating-releases/) and/or on [**Zenodo**](http://help.zenodo.org/), which has the good side-effect of getting you a citable `doi:` for your software which makes it easy to include it in your professional CV. For detailed instructions how to connect your GitHub release to Zenodo, see [here](https://genr.eu/wp/cite/)
 
 
 # 3 Develop
 
-You are done with configuring your project. **Check** your package frequently during development, and fix all errors right away. Package check errors have a way of interacting with each other that makes them hard to debug, it is best to address each one immediately when it occurs. Also, commit frequently and use meaningful commit messages. Your sanity will thank you. If you want to keep template files for reference, move them to the `./dev` directory so they will not be included in the package build. Finally, whenever you add new contents, reference it in the `LICENSE` file. Whenever you remove one of the original files, remove it from the `LICENSE` file. And whenever you modify a function, add your name to any existing authors.
+You are done with configuring your project. `rptPlus` should have been transformed into your own package project, and your edits should have left it in a "known-good-state" to work from. 
+
+- `rptPlus` passes `R CMD check` without errors, warnings or notes. 
+- `BiocCheck` passes without errors, but warns about the presence of `set.seed()` in a function (this is an intentional use that is correct for the context), and that `Biostrings` is not included in NAMESPACE (that is intentional and correct for the context: `Biostrings` has been added to `Imports:` in the `DESCRIPTION` to verify that package installation from Bioconductor works. But the package does not need to be imported in a function. NAMESPACE is however autogenerated by `Roxygen2` and does not generate import statements for packages that are not imported in specific function headers.) `BiocCheck` also generates notes about long lines (these are in the vignette source and are appropriately formatted), and about 4-space indents (this is not the preferred, modern coding style).
+
+**Check** your package frequently during development, and fix all errors right away. Package check errors have a way of interacting with each other that makes them hard to debug, it is best to address each one immediately when it occurs. Also, commit frequently and use meaningful commit messages. Your sanity will thank you. If you want to keep template files for reference, move them to the `./dev` directory so they will not be included in the package build. Finally, whenever you add new contents, reference it in the `LICENSE` file. Whenever you remove one of the original files, remove it from the `LICENSE` file. And whenever you modify a function, add your name to any existing authors.
 
 &nbsp;
 
@@ -661,48 +743,69 @@ Some useful keyboard shortcuts for package authoring:
 * Update Documentation:      `Cmd + Shift + D` or `devtools::document()`
 * Test Package:              `Cmd + Shift + T`
 * Check Package:             `Cmd + Shift + E` or `devtools::check()`
+* Build Vignettes            `devtools::build_vignettes()`
 
 &nbsp;
 
 # 4 What's in the box ...
 
-Here is a list of assets provided with `rpt` and why they are included. You can delete everything you don't need, but note: you can't push empty directories to your repository. Make sure you keep at least one file in every directory that you want to keep during development.
+Here is a list of assets provided with `rptPlus` and why they are included. You can delete everything you don't need, but note: you can't push empty directories to your repository. Make sure you keep at least one file in every directory that you want to keep during development.
  
 ```
 .gitignore                     <- defines files that should not be committed to the repository
 .Rbuildignore                  <- defines files that should not be included in the package
+.Rprofile                      <- optional: runs code during startup
+data/rptGC.RData               <- optional: sample exported data set
 DESCRIPTION                    <- the metadata file for your package
 dev                            <- optional: see (Note 1)
+dev/checkEnds.R                <- optional: see (Note 1)
 dev/functionTemplate.R         <- optional: see (Note 1)
 dev/rptTwee.R                  <- optional: see (Note 1)
+doc/                           <- compiled vignettes: autogenerated, don't edit
 inst/                          <- optional: see (Note 2)
+inst/CITATION                  <- optional: citation information for the package
 inst/extdata/                  <- optional: see (Note 3)
 inst/extdata/test-lseq.dat     <- optional: see (Note 3)
 inst/scripts/                  <- optional: see (Note 4)
+inst/scripts/benchmarkCodons.R <- optional: see (Note 4)
 inst/scripts/scriptTemplate.R  <- optional: see (Note 4)
+inst/shiny-scripts/rptApp/app.R <- optional: a shiny app
 LICENSE                        <- License(s)
 man/                           <- help files, generated by Roxygen2: don't edit
+Meta/                          <- the Vignette database. Autogenerated, don't edit
 NAMESPACE                      <- lists exported functions and data. Generated by Roxygen2: don't edit
+NEWS                           <- optional: package release progress
 R/                             <- Contains the code for exported functions
 R/lseq.R                       <- a sample function
+R/makeSeq.R                    <- a function used in the benchmarking sample script
+R/RcppExports.R                <- autogenerated for compiled C++ code
+R/rptGC.R                      <- documentation header sample for an exported data set
+R/rptPlus.R                    <- documentation header to include compiled code directives in NAMESPACE
+R/runRptApp.R                  <- function to run the sample shiny app
 R/zzz.R                        <- three functions for package management
 README.md                      <- see (Note 5)
-rpt.Rproj                      <- project options. Rename to <your-package-name>.Rproj
+rptPlus.Rproj                  <- project options. Rename to <your-package-name>.Rproj
+src/                           <- optional: folder for C++ code
+src/codonSplitCpp.cpp          <- a sample C++ program
+src/RcppExports.cpp            <- autogenerated to link compiled code. Do not edit.
 tests                          <- see (Note 6)
 tests/testthat                 <- contains scripts for tests to be run
+tests/testthat/helper-functions.R <- a helper function that infers the package name
 tests/testthat/test_lseq.R     <- a test script for ./R/lseq.R
 tests/testthat.R               <- the script that runs the tests
+vignettes/rptPlusVignette.Rmd  <- the sample Vignette included with rptPlus
+
 ```
 
-- **(Note 1)** The `./dev` directory. I use this directory to keep all files and assets that I need for development, but that should not be included and distributed in the final package. The directory is mentioned in `.Rbuildignore`. In `rpt` it contains `./dev/functionTemplate.R`, a template file for writing R functions with a Roxygen2 header, and `./dev/rptTwee.R`, which was discussed above.
+- **(Note 1)** The `./dev` directory. I use this directory to keep all files and assets that I need for development, but that should not be included and distributed in the final package. The directory is mentioned in `.Rbuildignore`. In `rptPlus` it contains `./dev/functionTemplate.R`, a template file for writing R functions with a Roxygen2 header, `./dev/rptTwee.R`, which was discussed above, and `./dev/checkEnds.R` which scans R-scripts for `# [END]` markers.
 
 - **(Note 2)** The `./inst` directory. Files in this directory are installed, and end up one level "higher" after installation. E.g. the contents of `./inst/extdata` is in the folder `./extdata/` of an installed package.
 
-- **(Note 3)** The `./inst/extdata` directory. This directory commonly contains "extra" data that is used in tests and examples. (Actual package data would go into a top-level `./data` directory and needs to be "exported". See [the `rptPlus` package](https://github.com/hyginn/rptPlus) for an example.) are installed, and end up one level "higher" after installation. E.g. the contents of `./inst` is in the folder `./extdata/` of an installed package.a sample data set used in the test for lseq()
+- **(Note 3)** The `./inst/extdata` directory. This directory commonly contains "extra" data that is used in tests and examples. (Actual package data goes into a top-level `./data` directory and needs to be "exported".) Here it contains `inst/extdata/test-lseq.dat`, a sample data set used in the test for `lseq()`.
 
-- **(Note 4)** The `./inst/scripts` directory. Many packages contain sample scripts in addition to the functions they share. Such  scripts go into this directory. `rpt` provides `./inst/scripts/scriptTemplate.R`, a template file to illustrate how to structure an R script.
+- **(Note 4)** The `./inst/scripts` directory. Many packages contain sample scripts in addition to the functions they share. Such  scripts go into this directory. `rptPlus` provides `./inst/scripts/scriptTemplate.R`, a template file to illustrate how to structure an R script and `./inst/scripts/benchmarkCodons.R` a benchmarking exercise sample script that includes the use of compiled  C++ code.
 
-- **(Note 5)** The file you are reading is the `README.md` file for the `rpt` package. `README` files explain what a package (or directory) contains, `.md` is the extension for [markdown](https://guides.github.com/features/mastering-markdown/) formatted text files. Replace the contents of this file with your own (you can keep using the [original on GitHub](https://github.com/hyginn/rpt/blob/master/README.md) as a reference); a nice template for structuring a markdown file is [here](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2).
+- **(Note 5)** The file you are reading is the `README.md` file for the `rptPlus` package. `README` files explain what a package (or directory) contains, `.md` is the extension for [markdown](https://guides.github.com/features/mastering-markdown/) formatted text files. Replace the contents of this file with your own (you can keep using the [original on GitHub](https://github.com/hyginn/rpt/blob/master/README.md) as a reference); a nice template for structuring a markdown file is [here](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2).
 
 - **(Note 6)** The `./tests` directory contains directories and assets for tests. For details see the [**Testing**](http://r-pkgs.had.co.nz/tests.html) chapter of Hadley Wickham's book. 
 
@@ -733,12 +836,6 @@ tests/testthat.R               <- the script that runs the tests
 <b id="af5">5</b> Displaying the startup message (as of this writing) works only once per session due to a long-standing bug in RStudio. (cf. [here](https://github.com/r-lib/devtools/issues/1442)). To display the message, choose **File** ▷ **Recent Projects...** ▷ **&lt;your-package-name&gt;** to reload your project, then type `library(<your-package-name>)` into the cosole. [↩](#a5)
 
 <b id="af6">6</b>Caution: the parameters for `install()` and `install_github` are surprisingly different. See [here](https://github.com/r-lib/devtools/issues/1896).[↩](#a6)
-
-<b id="af7">7</b>  [↩](#a7)
-
-<b id="af8">8</b>  [↩](#a8)
-
-<b id="af9">9</b>  [↩](#a9)
 
 &nbsp;
 
