@@ -3,7 +3,15 @@
 
 #' Split a string into codons
 #'
-#' @param cDNA A string.
+#' @author Boris Steipe, \email{boris.steipe@@utoronto.ca}
+#' ORCID: 0000-0002-1134-6758
+#' License: (c) Author (2018) + MIT
+#' Date: 2018-12-31
+#' @param cDNA (char) A single string
+#' @return (char) a vector of triplets
+#' @examples
+#' # Split a string into codons
+#' cpp_codonSplitCpp("ATGAAATGA")
 #' @export
 cpp_codonSplitCpp <- function(cDNA) {
     .Call('_rptPlus_cpp_codonSplitCpp', PACKAGE = 'rptPlus', cDNA)
