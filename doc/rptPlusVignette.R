@@ -66,3 +66,6 @@ knitr::kable(x,
 x <- readLines("../inst/extdata/test_lseq.dat")
 knitr::kable(x, caption = "Five log-spaced numbers in [1, 10]")
 
+## ---- echo=TRUE------------------------------------------------------------
+sessionInfo()
+

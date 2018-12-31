@@ -285,7 +285,16 @@ There are two ways to manage bibliographies: the common way is to supply an exte
 - [Detailed **"chunk"** options](https://yihui.name/knitr/options/)
 - The [Bioconductor LaTEX style reference](https://bioconductor.org/packages/release/bioc/vignettes/BiocStyle/inst/doc/LatexStyle2.pdf)
 
-<!-- the "References"" section determines placement of the bibliography -->
+# Session Info
+
+This release of the `rptPlus` package was produced in the following context of supporting packages:
+
+```{r, echo=TRUE}
+sessionInfo()
+```
+
+<!-- the bibliography appears at the end of the page -->
 # References
+
 
 <!-- End -->
