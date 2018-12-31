@@ -490,17 +490,55 @@ Imports:
 LinkingTo: Rcpp
 ```
 
-
-
-* installing Bioconductor packages;
-* biocViews;
-
 ### 2.6.6 A Secure Approach to Credentials
 
-Somew development needs login credentials
+Any software that needs to connect to private assets such as databases or restricted-access Websites, sooner or later needs login credentials in code. These are typically strings like username/password combinations, or access tokens. You **really** don't want those credentials to appear in plaintext on GitHub, for everyone to see, forever. Here is how to keep your secrets secret.
 
-* a secure approach to credentials;
-* compiled `C++` code;
+- **NEVER** put credentials in code that is under version control. Your credentials will be accessible from the git repository forever.
+- **NEVER EVER** push code that contains credentials to GitHub. Your credentials will be publically accessible forever. There are bots that harvest AWS credentials and then rack up charges to the hapless user while mining bitcoin.
+- **DON'T EVEN** type your credentials into the RStudio console during testing or whatever, they may remain visible in your `.RHistory` file.
+
+The proper way to handle credentials from R scripts is to keep them in a separate file outside of your project directory: filenames `../.credentials` or `~/.credentials` are good choices. Load your secrets from a utility function at the moment they are needed. Your credentials file can be encrypted (see the further reading below), but it doesn't need to be, for general use cases. 
+
+For example: I could use a `~/.credentials` file that is structured like this:
+
+```
+myAsset    dbadmin    quasitransconcillipurgation
+myOtherAsset    testUser    ponytale
+```
+
+A function to get credentials could be published with my code: 
+```r
+getCredentials <- function(asset, getUser = FALSE, getPass = FALSE) {
+  x <- readLines("~/.credentials")
+  x <- x[grepl(asset, x)]
+  x <- strsplit(x, "\\s+")[[1]][2:3]
+  return(x[c(getUser, getPass)])
+}
+```
+
+The function could be used in code like this:
+
+```r
+mydb <-  RMySQL::dbConnect(RMySQL::MySQL(),
+                           user =     getCredentials("myAsset", getUser = TRUE),
+                           password = getCredentials("myAsset", getPass = TRUE),
+                           dbname = "myDBAsset")
+```
+
+Some more things I would consider:
+- Don't rely on a `.gitignore` file to keep your secrets secret - it might inadvertently break.
+- Dont use `.Renviron` for your secrets and load them with `Sys.getenv()`, the file might accidentally get posted.
+- Don't keep your secrets in global options, you might inadvertently include them in a `save()`d `.RData` file.
+
+For more in-depth discussion and alternatives:
+- [Securely storing your secrets in R code](https://blog.revolutionanalytics.com/2015/12/securely-storing-your-secrets-in-r-code.html) (Andrie de Vries, 2015)
+- [Managing secrets](https://cran.r-project.org/web/packages/httr/vignettes/secrets.html) (Hadley Wickham, `httr` Vignette)
+- [Securing Credentials](https://db.rstudio.com/best-practices/managing-credentials/) (RStudio, Databases using R - Best Practices)
+
+### 2.6.7 Compiled `C++` code
+
+* ;
 * a packaged closure;
 * a `shiny` app;
 * considerations for reproducible research.

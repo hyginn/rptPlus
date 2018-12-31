@@ -77,7 +77,7 @@ This sample Vignette explains how to customize this template for your own R pack
 The `.Rmd` format in which this Vignette is written is a very clever way to enable ["literate programming"](https://en.wikipedia.org/wiki/Literate_programming): the source combines [markdown](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf) formatted text with executable R code, and the results of the code are integrated  into the resulting document. This magic is made possible by the fabulous [knitr package](https://en.wikipedia.org/wiki/Knitr), originally written by [Yihui Xie](https://yihui.name/en/about/) and integrated into the RStudio IDE. 
 
 `knitr` can render the Rmarkdown contents of this Vignette to a variety of different formats, including html and pdf. Which format is targeted is defined in the metadata block at the top of the Vignette.  Specifically, the format used here is
-["`BiocStyle::html_document`"](https://bioconductor.org/packages/devel/bioc/vignettes/BiocStyle/inst/doc/AuthoringRmdVignettes.html), which is a requirement for Bioconductor packages. An alternative format that is often used in CRAN and other packages is ["`html_vignette`"](https://bookdown.org/yihui/rmarkdown/r-package-vignette.html); this format aims to produce a vignette that is as small as possible.
+["`BiocStyle::html_document`"](https://bioconductor.org/packages/release/bioc/vignettes/BiocStyle/inst/doc/AuthoringRmdVignettes.html), which is a requirement for Bioconductor packages. An alternative format that is often used in CRAN and other packages is ["`html_vignette`"](https://bookdown.org/yihui/rmarkdown/r-package-vignette.html); this format aims to produce a vignette that is as small as possible.
 
 &nbsp;
 
