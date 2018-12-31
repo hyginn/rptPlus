@@ -8,7 +8,9 @@ author:
   email: boris.steipe@utoronto.ca
 date: "`r Sys.Date()`"
 abstract: >
-  The rptPlus Sample Vignette demonstrates markdown syntax for the creation of a Bioconductor-compatible Vignette, and serves as a template that can be customized for your own contents.
+  The rptPlus Sample Vignette demonstrates markdown syntax for the creation
+  of a Bioconductor-compatible Vignette, and serves as a template that can be
+  customized for your own contents.
 output:
   BiocStyle::html_document:
     toc: true
@@ -65,7 +67,9 @@ library(pkgName, character.only = TRUE)
 &nbsp;
 
 <div style="font-size:90%;border:solid 1px #337ab7;background-color:#FAFBFC;margin-right:0px;">
-There are many links and references in this document. If you find anything here ambiguous, inaccurate, outdated, incomplete, or broken, please [file an issue](https://github.com/hyginn/rpt/issues)!
+There are many links and references in this document. If you find anything here
+ambiguous, inaccurate, outdated, incomplete, or broken, please
+[file an issue](https://github.com/hyginn/rpt/issues)!
 </div>
 
 &nbsp;
@@ -77,7 +81,7 @@ This sample Vignette explains how to customize this template for your own R pack
 The `.Rmd` format in which this Vignette is written is a very clever way to enable ["literate programming"](https://en.wikipedia.org/wiki/Literate_programming): the source combines [markdown](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf) formatted text with executable R code, and the results of the code are integrated  into the resulting document. This magic is made possible by the fabulous [knitr package](https://en.wikipedia.org/wiki/Knitr), originally written by [Yihui Xie](https://yihui.name/en/about/) and integrated into the RStudio IDE. 
 
 `knitr` can render the Rmarkdown contents of this Vignette to a variety of different formats, including html and pdf. Which format is targeted is defined in the metadata block at the top of the Vignette.  Specifically, the format used here is
-["`BiocStyle::html_document`"](https://bioconductor.org/packages/devel/bioc/vignettes/BiocStyle/inst/doc/AuthoringRmdVignettes.html), which is a requirement for Bioconductor packages. An alternative format that is often used in CRAN and other packages is ["`html_vignette`"](https://bookdown.org/yihui/rmarkdown/r-package-vignette.html); this format aims to produce a vignette that is as small as possible.
+["`BiocStyle::html_document`"](https://bioconductor.org/packages/release/bioc/vignettes/BiocStyle/inst/doc/AuthoringRmdVignettes.html), which is a requirement for Bioconductor packages. An alternative format that is often used in CRAN and other packages is ["`html_vignette`"](https://bookdown.org/yihui/rmarkdown/r-package-vignette.html); this format aims to produce a vignette that is as small as possible.
 
 &nbsp;
 
@@ -179,7 +183,7 @@ The above example also shows how to caption a table and place an anchor for a li
 
 R markdown supports the rendering of equations with LaTeX markup. Here is an example:
 
-The golden ratio $\phi$ <!-- this is an inline equation: single $ delimiters -->is 
+The golden ratio $\phi$ <!-- this is an inline equation: single $ delimiters --> is 
 
 $$ \frac{\left(1 + \sqrt{5}\right)}{2} $$ <!-- this is a block equation: double $$ delimiters -->
 
@@ -242,7 +246,7 @@ par <- oPar                                # reset graphics state
 
 ### Tables
 
-Printing tables is straightforward using the defaults in `knitr::kable()`. But getting the data from your package can be tricky: the package needs to be built and installed first and loaded in the setup chunk of the Vignette. Then you can simply refer to exported data in the package namespace. However the usual `system.file()` will still fail. Not to worry: the correct path is simply `../inst/extdata/<fileName>` since knitr knits in `./vignettes` as its working directory. 
+Printing tables is straightforward using the defaults in `knitr::kable()`. But getting the data from your package can be tricky: the package needs to be built and installed first and loaded in the setup chunk of the Vignette. Then you can simply refer to exported data in the package namespace. However the usual `system.file()` will still fail. Not to worry: the correct path is simply `../inst/extdata/<fileName>` since knitr knits in `./vignettes` as its working directory. However, this code is specific to the vignette, not something you can tell your users to do. 
 
 Example 1. The standard genetic code is provided as sample data with `rptPlus`:
 
@@ -264,7 +268,7 @@ x <- readLines("../inst/extdata/test_lseq.dat")
 knitr::kable(x, caption = "Five log-spaced numbers in [1, 10]")
 ```
 
-Tables automatically receive anchors you can link to, for example the link to Table 1 is `link\@ref(tab:tMacros)` and it appears thus: Table \@ref(tab:tMacros).
+Tables automatically receive anchors that you can link to, for example the link to Table 1 is `link\@ref(tab:tMacros)` and it appears thus: Table \@ref(tab:tMacros).
 
 # Bibliographies and Citations
 
