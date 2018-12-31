@@ -2,14 +2,26 @@
 
 #### (**R** **P**ackage **T**emplate **Plus**)
 
-###### [Boris Steipe](https://orcid.org/0000-0002-1134-6758), Department of Biochemistry and Department of Molecular Genetics, University of Toronto, Canada. &lt;boris.steipe@utoronto.ca&gt;
+&nbsp;
+
+###### [Boris Steipe](https://orcid.org/0000-0002-1134-6758),
+###### Department of Biochemistry and Department of Molecular Genetics,
+###### University of Toronto, Canada.
+###### &lt;boris.steipe@utoronto.ca&gt;
 
 ----
 
-This README contains detailed information about how to work with this package. The associated Vignette can be previewed [here](http://htmlpreview.github.io/?https://github.com/hyginn/rptPlus/blob/master/doc/rptPlusVignette.html). The package can be installed in RStudio with `devtools::install_github("hyginn/rptPlus", build_opts = c("--no-resave-data", "--no-manual"))` however this is not likely to be very useful, this repository is meant to be downloaded and modified.
+This README contains detailed information about how to work with this package.
+The associated Vignette can be previewed [here](http://htmlpreview.github.io/?https://github.com/hyginn/rptPlus/blob/master/doc/rptPlusVignette.html). The package can be installed from GitHub with `devtools::install_github("hyginn/rptPlus", build_opts = c("--no-resave-data", "--no-manual"))`
+however this is not likely to be very useful, this repository is meant to be
+downloaded (as an RStudio project) and modified.
 
+----
 
-##### If any of this information is ambiguous, inaccurate, outdated, or incomplete, please [file an issue](https://github.com/hyginn/rptPlus/issues)!
+**If any of this information is ambiguous, inaccurate, outdated, or incomplete,
+please check the [most recent version](https://github.com/hyginn/rptPlus) of the
+package on GitHub and 
+[file an issue](https://github.com/hyginn/rptPlus/issues).**
 
 ----
 
@@ -464,7 +476,7 @@ Suggests:
 
 ### 2.6.5 Importing Bioconductor Packages
 
-CRAN and Bioconductor are the two curated repositories from which we usually install trusted software. In the life-sciences world, we can't live without using both. However, while CRAN-hosted packages mentioned in the `Imports:` field of `DESCRIPTION` are automatically installed from CRAN, merely mentioning a Bioconductor package is not itself sufficient to install from Bioconductor. The trick to install them is surprising and simple: you merely need to add a [`biocViews:`](https://www.bioconductor.org/packages/devel/BiocViews.html) field to `DESCRIPTION`. Such a [field with keywords](https://bioconductor.org/developers/how-to/biocViews/) that define how a package fits into the Bioconductor project is required for all Bioconductor packages. But here we simply use it for its side-effect of directing the package installer to search Bioconductor as well as CRAN for packages. 
+CRAN and Bioconductor are the two curated repositories from which we usually install trusted software. In the life-sciences world, we can't live without using both. However, while CRAN-hosted packages mentioned in the `Imports:` field of `DESCRIPTION` are automatically installed from CRAN, merely mentioning a Bioconductor package is not itself sufficient to install from Bioconductor. The trick to install them is surprising and simple: you merely need to add a [`biocViews:`](https://www.bioconductor.org/packages/devel/BiocViews.html) field to `DESCRIPTION`. Such a [field with keywords](https://bioconductor.org/developers/how-to/biocViews/) that define how a package fits into the Bioconductor project is required for all Bioconductor packages. But here we simply use it for its side-effect of directing the package installer to search Bioconductor as well as CRAN for packages, it is just a placeholder.
 
 
 **To be able to import Bioconductor packages in addition to CRAN packages:**
@@ -472,7 +484,7 @@ CRAN and Bioconductor are the two curated repositories from which we usually ins
 - Leave the following line intact in `DESCRIPTION` (or [add to it](https://bioconductor.org/developers/how-to/biocViews/)) if you are actually developing a Bioconductor package).
 
 ```
-biocViews: Software
+biocViews: Software, Infrastructure
 ```
 
 
@@ -482,7 +494,7 @@ biocViews: Software
 
 ```diff
 LazyData: true
--   biocViews: Software
+-   biocViews: Software, Infrastructure
 Imports:
 -       Biostrings,
     shiny,
@@ -503,7 +515,7 @@ The proper way to handle credentials from R scripts is to keep them in a separat
 For example: I could use a `~/.credentials` file that is structured like this:
 
 ```
-myAsset    dbadmin    quasitransconcillipurgation
+myAsset    dbadmin    quasitransconcillipurgination
 myOtherAsset    testUser    ponytale
 ```
 
@@ -538,17 +550,107 @@ For more in-depth discussion and alternatives:
 
 ### 2.6.7 Compiled `C++` code
 
-* ;
-* a packaged closure;
-* a `shiny` app;
-* considerations for reproducible research.
+Using `C++` code in your package has been made easy with the `Rcpp` package. What you need to do is to run `Rcpp::sourceCpp("<your-function-name>.cpp")` to compile and link your code, and then call it with `cpp_<your-function-name>()`. However, *distributing* compiled `C++` code with your package is a bit more involved, you need assets that are included here:
+
+* a `./src` directory to hold your `C++` sources;
+* a `DESCRIPTION` file that includes the `Rcpp` package in the `Imports` field and has a `LinkingTo:` field that defines `Rcpp`;
+* A script that contains the `Roxygen2` tags that cause information about linking behaviour to be added to the `NAMESPACE` file. Here it is `.R/rptPlus.R`; 
+* a `.gitignore` file that removes binary intermediates from version control.
+
+The source for a minimal sample function (`./src/codonSplitCpp,cpp`) is included and documented with the package framework, its use is demonstrated in the sample script `./inst/scripts/benchmarkCodons.R`. Once everything is set up, the process of compiling and linking the code is handled automaticaly by the RStudio build tools. Thus the development process is:
+
+* write your source-code and save it in the `./src` directory;
+* follow the header structure in the example, in particular note the roxygen-like comments that will get copied into the exported R file. If you don't have that, your function won't get exported.
+* update the documentation to have `Roxygen2` update the `NAMESPACE` file (`Cmd + Shift + D`);
+* reload the library, then check to make sure all is correct.
+
+Additional reading:
+* Hadley Wickham's "R-packages" chapter on [Compiled Code](http://r-pkgs.had.co.nz/src.html)
+* Hadley Wickham's "Advanced R" chapter on [Rcpp](http://adv-r.had.co.nz/Rcpp.html)
+* The vignettes that are distributed with the `Rcpp` package:
+** `vignette("Rcpp-introduction")`
+** `vignette("Rcpp-attributes")`
+** `vignette("Rcpp-package")`
+
+**To use C++ code in your package:**
+
+Read Hadley Wickham's "R-packages" chapter on [Compiled Code](http://r-pkgs.had.co.nz/src.html). Then rename the files that are distributed with `rptPlus` to reflect your package name. Build, document and install. Then validate by working through `./inst/scripts/benchmarkCodons.R`. This brings you to a "known-good-state". After that, copy, edit and develop. Make sure to save frequently: bugs in your C++ code **will** crash your RStudio session.
+
+
+**To remove C++ code support from your package:**
+
+- Delete the `./src` directory and its contents;
+- Edit the `DESCRIPTION` as follows:
+```diff
+Imports:
+    Biostrings,
+-      shiny,
+-      Rcpp
++      shiny
+
+-   LinkingTo: Rcpp
+
+Suggests: ...
+```
+
+- Delete `.R/rptPlus.R` and `.R/RcppExports.R`. 
+
+
+### 2.6.8 A Shiny App
+
+Shiny apps are great for two purposes: as a part of package documentation they can give your (potential) user a hands-on view into what your package can do. And if you are supporting users who don't code, you can make the workflow of your package available through a GUI.
+
+
+In order to distribute a Shiny app with your package:
+* Add the `shiny` package as a dependency into the `DESCRIPTION` file. In `rptPlus` I have included `shiny` under the `Imports:` heading; in case you consider the functionality of your Shiny app to be optional, you can move it under the `Suggests:` heading.
+
+* The package contains a folder `shiny-scripts` in the `./inst` folder. Put a folder for each shiny script of your package into that one. I have included a shiny app called `rptApp` in this template package. Find its associated files in `./inst/shiny-scripts/rptApp/`.
+
+* There is a function called `runRptApp.R` in the `R` folder. All the function does is to launch the app (and provide a `Roxygen2` header for the man page.) To demo the app, type `runRptApp()`.
+
+* This is only meant to provide a template for the general layout of files and functions in your package. For contents examples and code references see the [RStudio Shiny Tutorial](http://shiny.rstudio.com/tutorial/).
+
+**To include a shiny app in your package:**
+
+- Edit `./R/runRptApp.R`: 
+    - change the function name `runRptApp` to `run<your-shiny-app-name>`.
+    - change `package = "rptPlus"` in the `system.file()` call to `package = "<your-package-name>"`;
+    - change `"rptApp"` in the `system.file()` call to `"<your-shiny-app-name>"`;
+    - Also change all mentions of `rptPlus` in the header to `<your-package-name>`.
+- Rename `./R/runRptApp.R` to `./R/run<your-shiny-app-name>.R`.
+- Rename `./inst/shiny-scripts/rptApp` to `./inst/shiny-scripts/<your-shiny-app-name>`.
+
+Check, build, document, and install.
+
+**Validate** run `run<your-shiny-app-name>()` in the console. This should open the app in the viewer.
+
+This is your "known-good-state". [Learn about shiny options](http://shiny.rstudio.com/tutorial/), develop, and save and test frequently. Note that a good purpose of your app is as a quickstart into your package's functions. Make sure you are loading defaults when the app loads so it shows something interesting, and explain your parameters, proposing reasonable defaults.
+
+
+**To remove shiny support from your package:**
+
+- Edit `./DESCRIPTION` as follows
+
+```diff
+Imports:
+    Biostrings,
+-    shiny,
+    Rcpp
+```
+- Delete `./inst/shiny-scripts` and its contents
+- Delete `./R/runRptApp`
+
+
+### 2.6.9 Considerations for Reproducible Research
+
+The label "Reproducible Research" summarizes best practice that derives from the principles of the _scientific method_. Using the methodology implied with this package helps support these goals in multipe ways: reproducibility, writing code that is robust and maintainable, testing, finding the right granularity for code (one concern per function in one file), sharing etc. A topic that must not be forgotten is that code does not only need to be syntacticlly correct, but must also deliver correct results. Such *validation* of results may require comparing results against known true values and can be included in the test routines of the package.
 
 
 
 
 # 3 Develop
 
-You are done with configuring your baseline. **Check** your package frequently during commitment, and fix all errors right away. Package check errors have a way of interacting with each other that makes them hard to debug, it is best to address each one immediately when it occurs. Also, commit frequently and use meaningful commit messages. Your sanity will thank you. If you want to keep template files for reference, move them to the `./dev` directory so they will not be included in the package build. Finally, whenever you add new contents, reference it in the `LICENSE` file. Whenever you remove one of the original files, remove it from the `LICENSE` file. And whenever you modify a function, add your name to any existing authors.
+You are done with configuring your project. **Check** your package frequently during development, and fix all errors right away. Package check errors have a way of interacting with each other that makes them hard to debug, it is best to address each one immediately when it occurs. Also, commit frequently and use meaningful commit messages. Your sanity will thank you. If you want to keep template files for reference, move them to the `./dev` directory so they will not be included in the package build. Finally, whenever you add new contents, reference it in the `LICENSE` file. Whenever you remove one of the original files, remove it from the `LICENSE` file. And whenever you modify a function, add your name to any existing authors.
 
 &nbsp;
 
