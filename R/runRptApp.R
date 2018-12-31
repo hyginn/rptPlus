@@ -1,8 +1,13 @@
-# runRPTApp.R
+# runRptApp.R
 
-#' \code{runRptApp} launch the shiny app distributed with this package framework
-#'
-#' \code{runRptApp} launches the shiny app for which the code has been placed in  \code{./inst/shiny-scripts/rptApp/}.
+#' \code{runRptApp} run the shiny app \code{./inst/shiny-scripts/rptApp/}.
+#' @return Nothing. Invoked for its side-effect of launching a shiny app.
+#' @examples
+#' # No runnable example applies - but BiocCheck() requires one. So ...
+#' NULL
+#'\dontrun{
+#' runRptApp()
+#'}
 #' @export
 
 runRptApp <- function() {

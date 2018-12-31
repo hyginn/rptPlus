@@ -5,26 +5,35 @@
 \title{\code{makeSeq} output a random DNA sequence.}
 \usage{
 makeSeq(len, useInit = TRUE, useStop = TRUE, alphabet = c("A", "C",
-  "G", "T"), p = rep(0.25, 4), seed = Sys.time())
+  "G", "T"), p = rep(0.25, 4), seed = NULL)
 }
 \arguments{
-\item{len}{integer number of codons in the output sequence.}
+\item{len}{(integer)       number of codons in the returned string}
 
-\item{useInit}{(logical)  make the first codon an initiation codon. Default is \code{TRUE}.}
+\item{useInit}{(logical)  make the first codon an initiation codon. Default
+is \code{TRUE}.}
 
-\item{useStop}{(logical)  make the last codon a stop codon. Default is \code{TRUE}.}
+\item{useStop}{(logical)  make the last codon a stop codon. Default is
+\code{TRUE}.}
 
-\item{alphabet}{(character vector)  the elements that are randomly concatenated. Default is A/C/G/T.}
+\item{alphabet}{(character vector)  the elements that are randomly
+concatenated. Default is A/C/G/T.}
 
-\item{p}{(numeric vector)  Probabilites for each character to occur. Default is equiprobable.}
+\item{p}{(numeric vector)  Probabilites for each character to occur. Default
+is equiprobable.}
 
-\item{seed}{(numeric)  the seed for the RNG. Default is \code{Sys.time()}.}
+\item{seed}{(numeric)     the seed for the RNG. Default is \code{NULL} i.e.
+the RNG behaves as if no seed had been set..}
 }
 \value{
-A string.
+(character) a single string
 }
 \description{
-\code{makeSeq} outputs a string that contains a random sequence of characters (A/C/G/T by default). By default the first three letters are "ATG" and the last three letters are a stop-codon ("TAA", "TAG" or "TGA"). The number of characters in the output is three times the \code{len} argument, i.e. it condains \code{len} codons
+\code{makeSeq} outputs a string that contains a random sequence of characters
+(A/C/G/T by default). By default the first three letters are "ATG" and the
+last three letters are a stop-codon ("TAA", "TAG" or "TGA"). The number of
+characters in the output is three times the \code{len} argument, i.e. it
+contains \code{len} codons
 }
 \examples{
 makeSeq(7)

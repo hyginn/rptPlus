@@ -4,6 +4,7 @@
 # Version:
 # Date:
 # Author:
+# License:
 #
 # Input:
 # Output:
@@ -24,7 +25,9 @@ setwd("<your/project/directory>")
 # ====  PACKAGES  ==============================================================
 # Load all required packages.
 
-if (! require(seqinr, quietly=TRUE)) {
+if (requireNamespace(seqinr, quietly=TRUE)) {
+  library("seqinr")
+} else {
   install.packages("seqinr")
   library(seqinr)
 }

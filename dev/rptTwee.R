@@ -16,7 +16,8 @@
 #' two in the files pane). \code{rptTwee()} also removes the OS specific
 #' .DS_store files.
 #'
-#' @param path (char) Path of the root directory of the tree. Defaults to the return value of \code{getwd()}.
+#' @param path (char) Path of the root directory of the tree. Defaults to the
+#'                    return value of \code{getwd()}.
 #' @param showHidden (bool) if TRUE, show hidden files and directories.
 #' @param showRd  (bool) if TRUE, show the root directoryof the tree.
 #' @param lev (int) Limit depth of recursive listing to \code{lev}. Default

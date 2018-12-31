@@ -2,13 +2,14 @@
 
 #' checkEnds
 #'
-#' \code{checkEnds} Utility to check source files fro the presence of
+#' \code{checkEnds} Utility to check source files for the presence of
 #' an \code{# [END]} comment.
 #'
 #' @section Details: whenever \code{# [END]} comments are used in a project, ALL
 #' source files MUST include this tag. The function checks all files with an
 #' \code{.R} extension recursively from \code{path} and reports any files that
-#' do not have an \code{# [END]} tag as the last line of the script. If no such files are present, a message is printed.
+#' do not have an \code{# [END]} tag as the last line of the script. If no such
+#'files are present, a message is printed.
 #'
 #' @param path (char) path to directory that is to be checked recursively.
 #' Defaults to \code{getwd()}.

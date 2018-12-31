@@ -9,7 +9,7 @@ library(shiny)
 # Define UI for sample app
 myUi <- fluidPage(
 
-  titlePanel("Does this change the title?"),
+  titlePanel("Exploring the Central Limit Theorem"),
   sidebarLayout( position = "right",
     sidebarPanel(
       sliderInput(inputId = "histBins",

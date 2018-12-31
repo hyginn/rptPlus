@@ -7,17 +7,21 @@
 lseq(from, to, length.out = 10)
 }
 \arguments{
-\item{from}{first number in the sequence.}
+\item{from}{(numeric)       first number in the sequence.}
 
-\item{to}{last number in the sequence.}
+\item{to}{(numeric)         last number in the sequence.}
 
-\item{length.out}{length of the sequence, a positive integer > 1. Default is 10.}
+\item{length.out}{(integer) length of the sequence, a positive integer > 1.
+Default is 10.}
 }
 \value{
 A numeric vector.
 }
 \description{
-\code{lseq} works like \code{seq} in that it returns a vector of numbers with \code{from} as the first element, \code{to} as the last element, and \code{length.out} as the length of the vector, but the values are logarithmically spaced.
+\code{lseq} works like \code{seq} in that it returns a vector of numbers with
+\code{from} as the first element, \code{to} as the last element, and
+\code{length.out} as the length of the vector, but the values are
+logarithmically spaced.
 }
 \examples{
 # 20 log-spaced values between 0.1 and 10

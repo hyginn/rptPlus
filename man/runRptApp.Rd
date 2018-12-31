@@ -2,10 +2,20 @@
 % Please edit documentation in R/runRptApp.R
 \name{runRptApp}
 \alias{runRptApp}
-\title{\code{runRptApp} launch the shiny app distributed with this package framework}
+\title{\code{runRptApp} run the shiny app \code{./inst/shiny-scripts/rptApp/}.}
 \usage{
 runRptApp()
 }
+\value{
+Nothing. Invoked for its side-effect of launching a shiny app.
+}
 \description{
-\code{runRptApp} launches the shiny app for which the code has been placed in  \code{./inst/shiny-scripts/rptApp/}.
+\code{runRptApp} run the shiny app \code{./inst/shiny-scripts/rptApp/}.
+}
+\examples{
+# No runnable example applies - but BiocCheck() requires one. So ...
+NULL
+\dontrun{
+runRptApp()
+}
 }

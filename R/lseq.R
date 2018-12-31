@@ -2,11 +2,15 @@
 
 #' \code{lseq} output a sequence of logarithmically spaced numbers.
 #'
-#' \code{lseq} works like \code{seq} in that it returns a vector of numbers with \code{from} as the first element, \code{to} as the last element, and \code{length.out} as the length of the vector, but the values are logarithmically spaced.
+#' \code{lseq} works like \code{seq} in that it returns a vector of numbers with
+#' \code{from} as the first element, \code{to} as the last element, and
+#' \code{length.out} as the length of the vector, but the values are
+#' logarithmically spaced.
 #'
-#' @param from first number in the sequence.
-#' @param to last number in the sequence.
-#' @param length.out length of the sequence, a positive integer > 1. Default is 10.
+#' @param from (numeric)       first number in the sequence.
+#' @param to (numeric)         last number in the sequence.
+#' @param length.out (integer) length of the sequence, a positive integer > 1.
+#'                             Default is 10.
 #' @return A numeric vector.
 #' @author \href{https://orcid.org/0000-0002-1134-6758}{Boris Steipe} (aut)
 #' @seealso \code{\link{seq}}
