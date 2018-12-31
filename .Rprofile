@@ -19,25 +19,25 @@ source("./dev/checkEnds.R")
 
 # Example: Just check whether package exists, no need to load since
 #          we use BiocManager::install()
-# if (! requireNamespace("BiocManager2", quietly = TRUE)) {
-#   cat("Package BiocManager not installed.",
-#        "\nInstall with \"install.packages(\"BiocManager\")\"",
-#        "and load library.\n\n")
-# }
+if (! requireNamespace("BiocManager", quietly = TRUE)) {
+  cat("Package BiocManager not installed.",
+       "\nInstall with \"install.packages(\"BiocManager\")\"",
+       "and load library.\n\n")
+}
 
 # Example: load and do other things too
-# if (requireNamespace("BiocCheck2", quietly = TRUE)) {
-#   library(BiocCheck)                           # load the library and ...
-#   cat("Note: execute \"BiocCheck(getwd())\"",  # remind me of the syntax
-#       "for a Bioconductor compatibility check.\n\n")
-# } else {
-#   cat("Package BiocCheck not installed. ",
-#       "\nInstall with \"BiocManager::install(\"BiocCheck\")\" ",
-#       "and load library.\n\n")
-# }
+if (requireNamespace("BiocCheck", quietly = TRUE)) {
+  library(BiocCheck)                           # load the library and ...
+  cat("Note: execute \"BiocCheck(getwd())\"",  # remind me of the syntax
+      "for a Bioconductor compatibility check.\n\n")
+} else {
+  cat("Package BiocCheck not installed. ",
+      "\nInstall with \"BiocManager::install(\"BiocCheck\")\" ",
+      "and load library.\n\n")
+}
 
 # Example: just load a package if it exists, warn if not
-if (requireNamespace("BiocStyle2", quietly = TRUE)) {    # check and load
+if (requireNamespace("BiocStyle", quietly = TRUE)) {    # check and load
   library(BiocStyle)
 } else {
   cat("Package BiocStyle not installed.",
@@ -52,7 +52,7 @@ if (requireNamespace("BiocStyle2", quietly = TRUE)) {    # check and load
 # over requested library names. Note the syntax for loading a library from a
 # variable.
 
-needCRAN <- c("testthat2", "knitr", "rmarkdown2")
+needCRAN <- c("testthat", "knitr", "rmarkdown")
 
 for (package in needCRAN) {
   if (requireNamespace(package, quietly = TRUE)) {
