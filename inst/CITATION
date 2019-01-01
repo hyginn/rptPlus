@@ -18,6 +18,6 @@ bibentry(bibtype = "Manual",
          note = sprintf("R package version %s. %s",
                         meta$Version,
                         "Boris Steipe: ORCID 0000-0002-1134-6758"),
-         doi = "10.1145/1234.567",
-         url = "https://zenodo.org/TBD")
+         doi = "10.5281/zenodo.2529501",
+         url = "https://zenodo.org/record/2529502")
 

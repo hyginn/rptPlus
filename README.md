@@ -1,12 +1,14 @@
 # `rptPlus`
 
 #### (**R** **P**ackage **T**emplate **Plus**)
+[![DOI](https://zenodo.org/badge/157482801.svg)](https://zenodo.org/badge/latestdoi/157482801)
 
 &nbsp;
 
 ###### [Boris Steipe](https://orcid.org/0000-0002-1134-6758),
 ###### Department of Biochemistry and Department of Molecular Genetics,
-###### University of Toronto, Canada.
+###### University of Toronto
+###### Canada
 ###### &lt;boris.steipe@utoronto.ca&gt;
 
 ----
@@ -722,8 +724,22 @@ This is the essential beginning: is your code **correct**, and is your analysis 
 
 #### Documenting **how** your analysis works ...
 
-This is often taken to include exact reproducibility, but the importance of this may be overstated. Obviously the packages you import need to be made explicit. The command `sessionInfo()` in the Vignette documents the loaded packages and versions. If your package critically depends on the exact version of packages, consider using [`packrat`](https://rstudio.github.io/packrat/rstudio.html) for a distributable, self-contained, everything-included project. But it is more important to make it easy to understand what exactly you are doing. Having all the files available (the reason we build this package in the first place), and being able to document what change was made by whom at what time (that's why we use `git`) is a prerequisite. But that does not really explain how everything fits together. For this, a hierarchical approach will help, that combines a high-level summary (perhaps a shiny app or workflow diagram), a mid-level detailed description (in a Vignette or other `R markdown` "literate program"), and at the finest-level, the actual code that produced the analysis (in a script included in `./inst/scripts`). A part of this is to **release** your project in a known-good-state - as a [GitHub release](https://help.github.com/articles/creating-releases/) and/or on [**Zenodo**](http://help.zenodo.org/), which has the good side-effect of getting you a citable `doi:` for your software which makes it easy to include it in your professional CV. For detailed instructions how to connect your GitHub release to Zenodo, see [here](https://genr.eu/wp/cite/)
+This is often taken to include exact reproducibility, but the importance of this may be overstated. Obviously the packages you import need to be explicitly defined. The command `sessionInfo()` in the Vignette documents the loaded packages and versions. If your package critically depends on the exact version of packages, consider using [`packrat`](https://rstudio.github.io/packrat/rstudio.html) for a distributable, self-contained, everything-included project. But it is more important to make it easy to understand what exactly you are doing. Having all the files available (the reason we build this package in the first place), and being able to document what change was made by whom at what time (that's why we use `git`) is a prerequisite. But that does not really explain how everything fits together. For this, a hierarchical approach will help, that combines a high-level summary (perhaps a shiny app or workflow diagram), a mid-level detailed description (in a Vignette or other `R markdown` "literate program"), and at the finest-level, the actual code that produced the analysis (in a script included in `./inst/scripts`). All of the code. **Releasing** your code snapshot in a known-good-state is a crucial part of the "how". E.g. you might release the project when a manuscript was submitted, or when revisions were accepted, as a [GitHub release](https://help.github.com/articles/creating-releases/) and/or deposit it on the excellent CERN-backed [**Zenodo**](http://help.zenodo.org/) platform.
 
+Zenodo has the good side-effect of getting you a stable, citable `doi` for your package which makes it easy to include it in your professional CV. For detailed instructions how to connect your GitHub release to Zenodo, see [here](https://genr.eu/wp/cite/). In brief:
+- link your GitHub account to Zenodo simply by logging into [Zenodo](https://zenodo.org) with your github account;
+- once the accounts are linked, you will see a list of repositories you can deposit. Switch your project to "ON";
+- on your Github project page, click on **releases** and on **Draft a new release**;
+- enter your release information: this should be a "known-good-state", with an appropriate [semantic version number](https://semver.org/) (standard practice is `v1.0.0` for your first release), make sure the same version number appears in your `./DESCRIPTION`;
+- Click on **Publish release**. This will make an archived version of the repository available on Github, and it will automatically upload to Zenodo.
+- Back on Zenodo, refresh the list of repositories. Your linked repositories appear at the top of the list, and if a release has been deposited to Zenodo, a "doi badge" will appear with it.
+- Click on the badge to obtain the `markdown` code for the badge. Put it into your `./README.md`. The badge will always link to the latest release, thus you don't need to update it.  
+- Follow the link to your Zenodo record. It has a list of Versions in the sidebar. There is one `doi` which can link to all versions, and there is another `doi` for each specific version. You will probably want to put the "universal" `doi` into your `./inst/CITATION` file for the package itself, since it always links to the latest version. Specific citations, e.g. to manuscripts, get the `doi` for the version at the time of publication.
+- Since you have made changes to `./README.md` and possibly other files, you need to create a maintenance release. Update `./DESCRIPTION` with a new version that simply increments the patch level (the last digit, eg. `v1.0.1`). Commit all your changes. **Push** to GitHub and create a new release, call it "Maintenance". You can _describe_ that you have added `doi` information. Then **Publish release**.
+
+Your Zenodo record will now contain two releases with specific `doi`s, the latest release has the actual `doi` information that others can use, and your "doi badge" will link to the latest release. (Note: it might take a little while for the `doi` to get activated.) Everything is automatic from this point on.
+
+&nbsp;
 
 # 3 Develop
 
