@@ -1,3 +1,9 @@
+Changes in version 1.2.0 (2019-01-01)
+  Added
+    + doi from Zenodo
+  Changed
+    + finalized Reproducible Research section in README.md
+
 Changes in version 1.0.0 (2018-12-31)
   Added
     + made BiocCheck mostly pass

@@ -715,20 +715,20 @@ The label "Reproducible Research" summarizes best practice that derives from the
 
 Building a package along the principles laid out in `rptPlus` supports these goals in multipe ways.
 
-#### Documenting **that** your analysis works ...
+#### Documenting THAT your analysis works ...
 
 This is the essential beginning: is your code **correct**, and is your analysis **valid**? Correct code can be supported by unit- and integration tests using the testing infrastructure mapped out in the package. Aim to cover all of your code with tests and test after every change. Keeping a tight link between writing tests and writing code goes a long way towards arriving at well structured, maintainable software; this principle has given rise to [test-driven development methods](https://en.wikipedia.org/wiki/Test-driven_development). Showing that the analysis is valid requires a bit more than showing that your code is correct. Essentially you need to minimally show that your analysis can recover the correct parameters from a dataset. Since the correct parameters are virtually never known in real-world examples, you **must** provide synthetic data, constructed with known properties. The package structure of `rptPlus` gives you 
 - ways to document such data as internal and exported datasets, 
 - a place to store the scripts that generate your data and your model analysis (in `./inst/scripts`),
 - and a way to communicate this part of the analysis, in a Vignette.
 
-#### Documenting **how** your analysis works ...
+#### Documenting HOW your analysis works ...
 
 This is often taken to include exact reproducibility, but the importance of this may be overstated. Obviously the packages you import need to be explicitly defined. The command `sessionInfo()` in the Vignette documents the loaded packages and versions. If your package critically depends on the exact version of packages, consider using [`packrat`](https://rstudio.github.io/packrat/rstudio.html) for a distributable, self-contained, everything-included project. But it is more important to make it easy to understand what exactly you are doing. Having all the files available (the reason we build this package in the first place), and being able to document what change was made by whom at what time (that's why we use `git`) is a prerequisite. But that does not really explain how everything fits together. For this, a hierarchical approach will help, that combines a high-level summary (perhaps a shiny app or workflow diagram), a mid-level detailed description (in a Vignette or other `R markdown` "literate program"), and at the finest-level, the actual code that produced the analysis (in a script included in `./inst/scripts`). All of the code. **Releasing** your code snapshot in a known-good-state is a crucial part of the "how". E.g. you might release the project when a manuscript was submitted, or when revisions were accepted, as a [GitHub release](https://help.github.com/articles/creating-releases/) and/or deposit it on the excellent CERN-backed [**Zenodo**](http://help.zenodo.org/) platform.
 
 Zenodo has the good side-effect of getting you a stable, citable `doi` for your package which makes it easy to include it in your professional CV. For detailed instructions how to connect your GitHub release to Zenodo, see [here](https://genr.eu/wp/cite/). In brief:
-- link your GitHub account to Zenodo simply by logging into [Zenodo](https://zenodo.org) with your github account;
-- once the accounts are linked, you will see a list of repositories you can deposit. Switch your project to "ON";
+- link your GitHub account to Zenodo simply by logging into this [Zenodo page](https://zenodo.org/account/settings/github/) with your github account;
+- once the accounts are linked, you will see a list of repositories you can deposit to Zenodo. Switch your project to "ON";
 - on your Github project page, click on **releases** and on **Draft a new release**;
 - enter your release information: this should be a "known-good-state", with an appropriate [semantic version number](https://semver.org/) (standard practice is `v1.0.0` for your first release), make sure the same version number appears in your `./DESCRIPTION`;
 - Click on **Publish release**. This will make an archived version of the repository available on Github, and it will automatically upload to Zenodo.
@@ -738,6 +738,11 @@ Zenodo has the good side-effect of getting you a stable, citable `doi` for your 
 - Since you have made changes to `./README.md` and possibly other files, you need to create a maintenance release. Update `./DESCRIPTION` with a new version that simply increments the patch level (the last digit, eg. `v1.0.1`). Commit all your changes. **Push** to GitHub and create a new release, call it "Maintenance". You can _describe_ that you have added `doi` information. Then **Publish release**.
 
 Your Zenodo record will now contain two releases with specific `doi`s, the latest release has the actual `doi` information that others can use, and your "doi badge" will link to the latest release. (Note: it might take a little while for the `doi` to get activated.) Everything is automatic from this point on.
+
+
+#### Documenting WHY your analysis works ...
+
+The "why" is the hardest part because it can't be expressed in schemata and templates. It is also the most important part of your documentation, the reason why your project exists in the first place. If your project is about analysis, you need to interpret the significance of what you found to your peers. If your project is about data, you need to outline the value of what can be discovered in the data to the potential analysts. If your project is about tools, you need to share your vision of what can be accomplished with it with your potential users. **Data does not explain itself. Analyses are not self-evident. Tools don't make insight dispensible.** Leaving a project at the state of the mere provision of resources is a wasted opportunity. But if you weave your vision throughout the structure of your package project, for yourself just as much as for your community, you contribute to the win-win proposition of reproducible, open science.
 
 &nbsp;
 
@@ -857,8 +862,21 @@ vignettes/rptPlusVignette.Rmd  <- the sample Vignette included with rptPlus
 
 # 7 Further reading
 
-- The [**R Packages** book](http://r-pkgs.had.co.nz/) 
+**R packages**
+- [Hadley Wichham's **R Packages** book](http://r-pkgs.had.co.nz/)
 - The [**CRAN** manual on writing R-extensions](https://cran.r-project.org/doc/manuals/r-release/R-exts.html)
+- The [**Bioconductor** package guidelines](https://www.bioconductor.org/developers/package-guidelines/)
+
+**Development**
+- [**Writing good software** (software carpentry)](http://swcarpentry.github.io/r-novice-gapminder/16-wrap-up/index.html)
+
+**Reproducible Research**
+- The [**rOPenSci** project](https://ropensci.org/) 
+- The [**rOpenSci project's** package collection](https://ropensci.org/packages/) 
+- The excellent [rOpenSci **reproducibility guide** ](https://ropensci.github.io/reproducibility-guide/) 
+- The [**Software Carpentry** project](https://software-carpentry.org/)
+- The [**FAIR** data management principles](https://www.nature.com/articles/sdata201618) 
+- PLOS Computational Biology: Ten simple rules [**... for Reproducible Computational Research**](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003285) (2013)
 
 &nbsp;
 

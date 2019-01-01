@@ -1,8 +1,8 @@
 Package: rptPlus
 Type: Package
 Title: R Package Template - enhanced
-Version: 1.0.2
-Date: 2018-12-31
+Version: 1.2.0
+Date: 2019-01-01
 Authors@R: c(
              person("Boris", "Steipe", 
                     email = "boris.steipe@utoronto.ca", 

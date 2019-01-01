@@ -29,7 +29,7 @@ references:
     orcid: 0000-0002-1134-6758
   container-title: '[R package](https://github.com/hyginn/rptPlus)'
   URL: 'https://github.com/hyginn/rptPlus'
-  DOI: TBD
+  DOI: 10.5281/zenodo.2529501
   type: no-type
   issued:
     year: 2018
