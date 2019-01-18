@@ -54,45 +54,59 @@ makeMD5 <- function(myDir = getwd(), ignoreFiles, ignorePatternsIn) {
 	#             existing one. This file is suitable input for
 	#             tools::checkMD5sums("", myDir)).
 
+  # define regex patterns, which files to ignore
 	if (missing(ignoreFiles)) {
-	  ignoreFiles <- c("^MD5$")
+	  ignoreFiles <- c("^MD5$")  # default: ignore MD5 file itself
 	} else if (all(ignoreFiles == "")) {
 	  ignoreFiles <- character()
 	}
 
+  # define files containing additional regexes
   if (missing(ignorePatternsIn)) {
-    ignorePatternsIn <- c(".Rbuildignore")
+    ignorePatternsIn <- c(".Rbuildignore") # default
   } else if (all(ignorePatternsIn == "")) {
     ignorePatternsIn <- character()
   }
 
+  # process all files containing additional regexes
   for (fN in ignorePatternsIn) {
     fN <- file.path(myDir, fN)
     x <- readLines(fN)
     x <- x[! grepl("(^\\s*#)|(^\\s*$)", x)] # remove comment- or empty lines
-    ignoreFiles <- c(ignoreFiles, x)
+    ignoreFiles <- c(ignoreFiles, x)        # add regex patterns to list
   }
 
+  # make initial list of filenames
   fileNames <- dir(myDir, recursive = TRUE)
+
+  # also make list of directory names - some regexes may exclude
+  # directories, not files
   dirNames <- list.dirs(path = myDir, full.names = FALSE)
   dirNames <- dirNames[! grepl("(^\\.)|(^$)", dirNames)] # not empty or hidden
 
+  # remove all files that need to be ignored
   for (patt in ignoreFiles) {
-    if (sum(grepl(patt, dirNames)) > 0) { # pattern matches directories
-      # change pattern to match filepaths and remove those files
+    if (sum(grepl(patt, dirNames)) > 0) { # note: pattern matches directories!
+      # change pattern to match filepaths and remove all matching files
+      # note: must terminate with .Platform$file.sep, otherwise  filenames
+      #       starting with the directory string will be targeted!
       p2 <- gsub("(\\$)*$", .Platform$file.sep, patt)
       fileNames <- fileNames[! grepl(p2, fileNames)]
     }
     fileNames <- fileNames[! grepl(patt, fileNames)]
   }
 
-  # process all files
+  # done creating list of files to process
+
+  # md5-process all files
   md5 <- tools::md5sum(file.path(myDir, fileNames))
   if (length(md5) > 0) {
     # filenames are fully qualified. Remove myDir to get relative
     # path, and remove first character, which must be either "\" or "/"
     md5 <- paste0(md5, " *", gsub(paste0(myDir, "."), "", names(md5)))
   }
+
+  # output MD5 file
   writeLines(md5, con = file.path(myDir, "MD5"))
 
 	return(invisible(NULL))
@@ -108,9 +122,6 @@ if (FALSE) {
   tools::checkMD5sums("", getwd())
 
 }
-
-
-
 
 
 # ====  TESTS  =================================================================
