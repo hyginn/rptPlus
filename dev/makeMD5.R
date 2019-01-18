@@ -21,7 +21,7 @@
 
 makeMD5 <- function(myDir = getwd(), ignoreFiles, ignorePatternsIn) {
 	# Purpose:
-	#     Describe ...
+	#     produce a file that is valid input for tools::checkMD5sums()
 	# Parameters:
 	#     myDir:  The directory in which the resulting MD5 file will be placed.
 	#             All files that are returned by a call to
@@ -128,12 +128,6 @@ if (FALSE) {
 # Enter your function tests here...
 
 if (FALSE) {
-
-  # TBD
-  # Create a test environment in tempdir
-  # test basic performance
-  # test proper exclusion of directories at top level and sublevels
-  # test
 
   library(testthat)
 
@@ -318,9 +312,11 @@ if (FALSE) {
              file.path(myPath, ".Rbuildignore")))
   })
 
-  # cleanup
-  unlink(testFN)
-  unlink(myPath, recursive = TRUE)
+  # Cleanup:
+
+  # unlink(testFN)
+  # unlink(myPath, recursive = TRUE)
+
   # list.dirs(myPath)
   # list.files(myPath, recursive = TRUE)
 
