@@ -4,3 +4,5 @@
 ^Meta$
 ^doc$
 ^dev$
+\.o$
+\.so$

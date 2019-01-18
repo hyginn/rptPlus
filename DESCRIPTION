@@ -1,8 +1,7 @@
 Package: rptPlus
 Type: Package
-Title: R Package Template - enhanced
-Version: 1.2.0
-Date: 2019-01-01
+Title: R Package Template - Enhanced
+Version: 1.3.0
 Authors@R: c(
              person("Boris", "Steipe", 
                     email = "boris.steipe@utoronto.ca", 
@@ -12,10 +11,12 @@ Authors@R: c(
 Description: A template for an RStudio project of an R package with a GitHub
              repository that follows principles described in Hadley Wickham's
              R Packages book and is compatible with CRAN and Bioconductor
-             guidelines. The project is version controlled, contains testing
-             code, can be installed from GitHub using standard tools, contains 
-             sample NEWS and CITATION files, an example data set, a packaged
-             closure, a compiled C++ function, a shiny function, and extensive
+             guidelines and best practice for reproducible research. The project
+             is version controlled, contains testing code, can be installed from
+             GitHub using standard tools, contains sample NEWS and CITATION
+             files, an MD5 file and utilities to create and update it, 
+             an example data set, a compiled C++ function, a Vignette
+             built from an R markdown source, a shiny app, and extensive
              instructions on how to install and customize.
 URL: https://github.com/hyginn/rptPlus
 License: file LICENSE
