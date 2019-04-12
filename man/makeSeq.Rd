@@ -5,7 +5,7 @@
 \title{\code{makeSeq} output a random DNA sequence.}
 \usage{
 makeSeq(len, useInit = TRUE, useStop = TRUE, alphabet = c("A", "C",
-  "G", "T"), p = rep(0.25, 4), seed)
+  "G", "T"), p = rep(0.25, 4))
 }
 \arguments{
 \item{len}{(integer)       number of codons in the returned string}
@@ -37,7 +37,11 @@ with a parameter of your choice before the function call if you wish the
 sequence to be reproducible.
 }
 \examples{
-makeSeq(7)
-makeSeq(7, p = c(0.2, 0.4, 0.4, 0.2), seed = 112358)
+makeSeq(7)  # six amino acids (incl. start codon) and a stop codon
+\dontrun{
+  set.seed(112358)  # reproducible random
+  makeSeq(7, p = c(0.2, 0.4, 0.4, 0.2))  # "ATGTATTTGTACCGGCGTTAA"
+  set.seed(NULL)
+}
 gsub("T", "U", makeSeq(7)) # for RNA
 }
