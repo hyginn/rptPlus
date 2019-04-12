@@ -7,13 +7,14 @@
 #' Details.
 #' @section <title>: Additional explanation.
 #'
-#' @param <p> <description>.
-#' @param <q> <description>.
-#' @return <description>.
+#' @param <p> (<type>) <description>.
+#' @param <q> (<type>) <description>.
+#' @return <description> ... or ...
+#' @return NULL (invisible) Invoked for the side effect <describe>.
 #'
-#' @family <optional description of family>
+#' @family <optional description of function family>
 #'
-#' @author \href{https://orcid.org/0000-0002-1134-6758}{Boris Steipe} (aut)
+#' @author \href{https://orcid.org/<ORCID>}{<author name>} (aut)
 #'
 #' @seealso \code{\link{<function>}} <describe related function>, ... .
 #'
@@ -24,8 +25,10 @@
 #' @export
 
 myFunction <- function(p, q) {
+    # Note
 
-    return(p * q)
+  return(p * q) # or
+  return(invisible(NULL))
 }
 
 # [END]

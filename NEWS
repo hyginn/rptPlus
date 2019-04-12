@@ -1,3 +1,14 @@
+Changes in version 1.4.0 (2019-04)
+  Added
+    + MD5 checksum file, and code to automatically update the file
+  Changed
+    + add a mechanism to source() scripts without side-effects to the script template
+    + make ALL Bioc checks pass: don't use set.seed(); import Biostrings in NAMESPACE
+    + use bibliography.bib file, not YAML inline references, for vignette
+    + update all code samples to use return(invisible(NULL)) if nothing is returned
+    + update this in roxygen docs as well
+    + use message() instead of cat() wherever possible
+
 Changes in version 1.2.0 (2019-01-01)
   Added
     + doi from Zenodo

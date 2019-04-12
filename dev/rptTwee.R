@@ -26,7 +26,8 @@
 #'                    that are excluded from the tree. Defaults to exclude
 #'                    the files and directories that are not shown in the
 #'                    RStudio files pane.
-#' @return None. Invoked for the side-effect of printing the tree to console.
+#' @return NULL (invisibly)  Invoked for the side-effect of printing the
+#'                           tree to console.
 #'
 #' @author \href{https://orcid.org/0000-0002-1134-6758}{Boris Steipe} (aut)
 #'
@@ -96,6 +97,8 @@ rptTwee <- function(path = getwd(),
   fad <- paste0(fad, dirMarks)  # add dirmarks back
 
   cat(fad, sep = "\n")   # cat result
+
+  return(invisible(NULL))
 
 }
 

@@ -20,21 +20,10 @@ vignette: >
   %\VignetteIndexEntry{The rptPlus Sample Vignette}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
-references:
-- id: steipe2018
-  title: 'rptPlus: R Package Template - enhanced'
-  author:
-  - family: Steipe
-    given: Boris
-    orcid: 0000-0002-1134-6758
-  container-title: '[R package](https://github.com/hyginn/rptPlus)'
-  URL: 'https://github.com/hyginn/rptPlus'
-  DOI: 10.5281/zenodo.2529501
-  type: no-type
-  issued:
-    year: 2018
-    month: 12
+bibliography: bibliography.bib
 ---
+<!-- this will generate an entry in the References section, but no citation appears in the text -->
+nocite: @pmid24204232, @Borges1977
 
 <!--- this inline style supports diff-like highlighting -->
 <style>
@@ -48,7 +37,7 @@ references:
   }
 </style>
 
-
+<!--- this is a required chunk that sets up proceesing the document by knitr -->
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -272,7 +261,11 @@ Tables automatically receive anchors that you can link to, for example the link 
 
 # Bibliographies and Citations
 
-There are two ways to manage bibliographies: the common way is to supply an external bibliography file in the `./vignettes` folder, (for details see [here](https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html)), but one can also keep short bibliographies inline, in the `YAML` formatted metadata block, as we do above (cf. [here](http://blog.martinfenner.org/2013/07/30/citeproc-yaml-for-bibliographies/)). This document's YAML metadata block contains a citation derived from the package's `citation()` information [@steipe2018]. To cite a work in your text, type `[@<reference-id>]`. References will be compiled after the `# References` section of your document.
+There are two ways to manage bibliographies: the common way is to supply an external bibliography file in the `./vignettes` folder, but one can also keep short bibliographies inline, in the `YAML` formatted metadata block (cf. [here](http://blog.martinfenner.org/2013/07/30/citeproc-yaml-for-bibliographies/)). I recommend the external bibliography, it is more explicit and if your package contains more than one vignette it guarantees that the references are consistent. The `bibliography.bib` file included here contains three different "entry types" so you have templates to work with. Valid BibTeX entry types and their required and optional fields are listed [here](https://en.wikipedia.org/wiki/BibTeX#Entry_types). Automatically converting pubmed IDs to BibTeX formatted references can be done with [TeXMed](https://www.bioinformatics.org/texmed/). 
+
+To cite a work in your text, type `[@<reference-id-in-bibFile>]`. For example `[@steipe-rptPlus]` will render as [@steipe-rptPlus]. References will be compiled after the `# References` section of your document.
+
+More details on formatting citations are [posted at RStudio](https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html).
 
 
 # Further reading

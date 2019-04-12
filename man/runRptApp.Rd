@@ -7,7 +7,7 @@
 runRptApp()
 }
 \value{
-Nothing. Invoked for its side-effect of launching a shiny app.
+NULL (invisible) Invoked for its side-effect of launching a shiny app.
 }
 \description{
 \code{runRptApp} run the shiny app \code{./inst/shiny-scripts/rptApp/}.

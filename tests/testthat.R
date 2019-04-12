@@ -8,4 +8,5 @@ pkgName <- x[length(x)]
 library(pkgName, character.only = TRUE)
 
 test_check(pkgName)
+
 # [END]

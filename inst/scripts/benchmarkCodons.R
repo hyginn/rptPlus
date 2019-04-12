@@ -6,6 +6,11 @@
 # Author: Boris Steipe (ORCID: 0000-0002-1134-6758)
 # License: (c) Author (2018) + MIT
 # Date: 2018-12-31
+# ==============================================================================
+
+
+# WARNING: SIDE EFFECTS
+# Executing this script will execute code it contains.
 
 
 # === Packages =================================================================
@@ -186,4 +191,3 @@ ggplot2::autoplot(bm)
 
 
 # [END]
-

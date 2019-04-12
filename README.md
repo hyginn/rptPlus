@@ -98,7 +98,7 @@ The assets packaged  in `rptPlus` support R users and developers at all levels w
 
 This is all it takes, but the details take care. You will go through the following steps:
 
-1. Define your package name and create a new GithHub project;
+1. Define your package name and create a new GitHub project;
 2. Make a new RStudio project on your local machine that is linked to your GitHub project;
 3. Download a ZIP archive of `rptPlus` and copy all the core files over to your project folder;
 4. Customize your files;
@@ -862,7 +862,7 @@ vignettes/rptPlusVignette.Rmd  <- the sample Vignette included with rptPlus
 
 ----
 
-<b id="af1">1</b> A good way to begin your devevlopment journey is to build a minimal package based on [`rpt`](https://github.com/hyginn/rpt), and then extend the package with assets you find in `rptPlus` in the context of an actual projects [↩](#a1).
+<b id="af1">1</b> A good way to begin your development journey is to build a minimal package based on [`rpt`](https://github.com/hyginn/rpt), and then extend the package with assets you find in `rptPlus` in the context of an actual project [↩](#a1).
 
 <b id="af2">2</b> Empty repositories by convention have a `.git` extension to the repository name, repositories with contents have no extension: the name indicates the repository directory and that directory contains the `.git` file. Therefore your package should **NOT** be named `<package>.git` although links to your repository on GitHub seem to be correctly processed with both versions. For more discussion, see [here](https://stackoverflow.com/questions/11068576/why-do-some-repository-urls-end-in-git-while-others-dont) [↩](#a2)
 

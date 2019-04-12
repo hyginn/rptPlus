@@ -6,7 +6,11 @@
 #' (A/C/G/T by default). By default the first three letters are "ATG" and the
 #' last three letters are a stop-codon ("TAA", "TAG" or "TGA"). The number of
 #' characters in the output is three times the \code{len} argument, i.e. it
-#' contains \code{len} codons
+#' contains \code{len} codons. Note: the function does not \code{set.seed()};
+#' according to current best-practice, functions should never change the state
+#' of the RNG since this is a global change. Instead, execute \code{set.seed()}
+#' with a parameter of your choice before the function call if you wish the
+#' sequence to be reproducible.
 #'
 #' @param len (integer)       number of codons in the returned string
 #' @param useInit  (logical)  make the first codon an initiation codon. Default
@@ -17,10 +21,8 @@
 #'                                     concatenated. Default is A/C/G/T.
 #' @param p (numeric vector)  Probabilites for each character to occur. Default
 #'                            is equiprobable.
-#' @param seed  (numeric)     the seed for the RNG. Default is \code{NULL} i.e.
-#'                            the RNG behaves as if no seed had been set..
-
 #' @return (character) a single string
+#' @import Biostrings
 #' @examples
 #' makeSeq(7)
 #' makeSeq(7, p = c(0.2, 0.4, 0.4, 0.2), seed = 112358)
@@ -31,8 +33,7 @@ makeSeq <- function(len,
                     useStop = TRUE,
                     alphabet = c("A", "C", "G", "T"),
                     p = rep(0.25, 4),
-                    seed = NULL) {
-  set.seed(seed)
+                    seed) {
 
   if (useInit) {
     myInit <- "ATG"

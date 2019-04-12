@@ -21,7 +21,7 @@
     #     options(optRpt[optionsToSet])
     # }
 
-    invisible()
+    return(invisible(NULL))
 }
 
 
@@ -36,6 +36,7 @@
                     utils::packageDescription(pkgname)$Maintainer))
 
   packageStartupMessage(paste(m, collapse=""))
+  return(invisible(NULL))
 }
 
 

@@ -5,7 +5,7 @@
 \title{\code{makeSeq} output a random DNA sequence.}
 \usage{
 makeSeq(len, useInit = TRUE, useStop = TRUE, alphabet = c("A", "C",
-  "G", "T"), p = rep(0.25, 4), seed = NULL)
+  "G", "T"), p = rep(0.25, 4), seed)
 }
 \arguments{
 \item{len}{(integer)       number of codons in the returned string}
@@ -21,9 +21,6 @@ concatenated. Default is A/C/G/T.}
 
 \item{p}{(numeric vector)  Probabilites for each character to occur. Default
 is equiprobable.}
-
-\item{seed}{(numeric)     the seed for the RNG. Default is \code{NULL} i.e.
-the RNG behaves as if no seed had been set..}
 }
 \value{
 (character) a single string
@@ -33,7 +30,11 @@ the RNG behaves as if no seed had been set..}
 (A/C/G/T by default). By default the first three letters are "ATG" and the
 last three letters are a stop-codon ("TAA", "TAG" or "TGA"). The number of
 characters in the output is three times the \code{len} argument, i.e. it
-contains \code{len} codons
+contains \code{len} codons. Note: the function does not \code{set.seed()};
+according to current best-practice, functions should never change the state
+of the RNG since this is a global change. Instead, execute \code{set.seed()}
+with a parameter of your choice before the function call if you wish the
+sequence to be reproducible.
 }
 \examples{
 makeSeq(7)
